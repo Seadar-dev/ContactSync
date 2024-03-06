@@ -12,7 +12,8 @@ export default async function subscribe() {
     expirationDateTime: expirationDate(),
     clientState: '123456789',
     includeResourceData: true,
-    // encryptionCertificate: 
+    encryptionCertificate: process.env.AZURE_ENCRYPTION_CERT,
+    encryptionCertificateId: process.env.AZURE_ENCRYPTION_ID,
   };
 
   const res = await client.api('/subscriptions').post(subscription);
