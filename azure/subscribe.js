@@ -7,11 +7,12 @@ export default async function subscribe() {
   const subscription = {
     changeType: 'created,updated',
     notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
-
     lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
     resource: `/users/${process.env.DIRECTORY_ID}/contactFolders/${process.env.FOLDER_ID}/contacts/`,
     expirationDateTime: expirationDate(),
-    clientState: '123456789'
+    clientState: '123456789',
+    includeResourceData: true,
+    // encryptionCertificate: 
   };
 
   const res = await client.api('/subscriptions').post(subscription);

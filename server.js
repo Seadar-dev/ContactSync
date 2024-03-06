@@ -6,7 +6,7 @@ import subscribe, { renew, subscriptions, unsubscribe } from './azure/subscribe.
 const app = express();
 app.use(bodyParser.json());
 
-var subscriptionId;
+var subscriptionId = null;
 
 //Get request for testing if connection is working
 app.get('/', (req, res) => {
@@ -30,7 +30,7 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
-  console.log(req.body);
+  console.log(JSON.stringify(req.body));
 
 
   await fixContact();
@@ -93,6 +93,7 @@ app.delete('/unsubscribe', async (req, res) => {
   }
 
   await unsubscribe(req?.query?.id ? req.query.id : subscriptionId);
+  subscriptionId = null;
   res.status(200).send("UNSUBSCRIBED")
 })
 
