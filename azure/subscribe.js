@@ -3,7 +3,6 @@ import { expirationDate } from "./utils.js";
 
 export default async function subscribe() {
   const client = await auth();
-  console.log(expirationDate())
 
   const subscription = {
     changeType: 'created,updated',

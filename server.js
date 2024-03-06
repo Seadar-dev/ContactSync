@@ -38,7 +38,7 @@ app.post('/webhook', async (req, res) => {
 app.post('/webhook/backup', async (req, res) => {
   console.log("Webhook backup called")
   console.log(req.body);
-  await renew(req.body)
+  // await renew(req.body)
   res.status(200).send("OK")
 });
 
