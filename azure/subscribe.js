@@ -1,5 +1,5 @@
 import auth from "./auth.js";
-import { expirationDate } from "./utils.js";}
+import { expirationDate } from "./utils.js";
 
 export default async function subscribe() {
   const client = await auth();
