@@ -8,7 +8,7 @@ export default async function subscribe() {
     changeType: 'created,updated',
     notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
     lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
-    resource: `/users/${process.env.DIRECTORY_ID}/contactFolders/${process.env.FOLDER_ID}/contacts?$select=emailAddress,firstName,lastName,phone,id,jobTitle,birthday,givenName,surname,mobilePhone`,
+    resource: `/users/${process.env.DIRECTORY_ID}/contactFolders/${process.env.FOLDER_ID}/contacts?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,mobilePhone`,
     expirationDateTime: expirationDate(),
     clientState: '123456789',
     includeResourceData: true,
