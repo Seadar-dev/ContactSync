@@ -30,6 +30,8 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
+  console.log(req.body);
+
 
   await fixContact();
   res.status(200).send("OK")
@@ -46,9 +48,12 @@ app.post('/webhook/backup', async (req, res) => {
     res.send(req.query.validationToken);
     return;
   }
+  if (req?.body?.value[0]?.lifecycleEvent) {
+    const sub = await renew(req?.body?.value[0]?.subscriptionId);
+    subscriptionId = sub.id;
+    res.status(200).send("RENEWED")
+  }
 
-  console.log(req.body);
-  // await renew(req.body)
   res.status(200).send("OK")
 });
 
@@ -63,9 +68,10 @@ app.post('/subscribe', async (req, res) => {
 // Renews a subscription
 app.post('/renew', async (req, res) => {
   console.log("Renewing");
-  console.log(subscriptionId);
 
-  await renew(subscriptionId);
+  const sub = await renew(subscriptionId);
+  subscriptionId = sub.id;
+
   res.status(200).send("RENEWED")
 })
 
