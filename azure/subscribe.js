@@ -33,6 +33,7 @@ export async function renew(id) {
   const res = await client.api(`/subscriptions/${id}`)
     .update(subscription);
 
+  console.log("RESPONSE: ")
   console.log(res);
 }
 
