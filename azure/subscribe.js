@@ -22,7 +22,6 @@ export default async function subscribe() {
 // subscribe()
 
 export async function renew(id) {
-  console.log("Renewing")
 
   const client = await auth();
   const subscription = {
@@ -36,8 +35,9 @@ export async function renew(id) {
 
 export async function unsubscribe(id) {
   const client = await auth();
-  await client.api(`/subscriptions/${id}`)
+  const res = await client.api(`/subscriptions/${id}`)
     .delete();
+  console.log(res);
 }
 
 export async function subscriptions() {

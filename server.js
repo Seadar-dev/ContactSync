@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 app.post('/webhook', async (req, res) => {
   console.log("Webhook called")
 
-  //Checks if validation request
+  // Validates validation request
   if (req.query && req.query.validationToken) {
     res.set('Content-Type', 'text/plain');
     res.send(req.query.validationToken);
@@ -39,8 +39,8 @@ app.post('/webhook', async (req, res) => {
 
 app.post('/webhook/backup', async (req, res) => {
   console.log("Webhook backup called")
-  //Checks if validation request
 
+  // Validates validation request
   if (req.query && req.query.validationToken) {
     res.set('Content-Type', 'text/plain');
     res.send(req.query.validationToken);
@@ -63,8 +63,9 @@ app.post('/subscribe', async (req, res) => {
 // Renews a subscription
 app.post('/renew', async (req, res) => {
   console.log("Renewing");
+  console.log(subscriptionId);
 
-  await renew("e0b6b09e-73d6-4223-bfe0-9ee862c04af5");
+  await renew(subscriptionId);
   res.status(200).send("RENEWED")
 })
 
@@ -72,10 +73,11 @@ app.post('/renew', async (req, res) => {
 app.delete('/unsubscribe', async (req, res) => {
   console.log("Unsubscribing");
 
-  await unsubscribe();
+  await unsubscribe(subscriptionId);
   res.status(200).send("UNSUBSCRIBED")
 })
 
+//Gets a list of all active subscriptions
 app.get('/subscriptions', async (req, res) => {
   console.log("Getting subscriptions");
   console.log(subscriptionId);
