@@ -50,6 +50,7 @@ app.post('/webhook/backup', async (req, res) => {
   }
   if (req?.body?.value[0]?.lifecycleEvent) {
     const sub = await renew(req?.body?.value[0]?.subscriptionId);
+    console.log("*****************************", sub)
     subscriptionId = sub.id;
     res.status(200).send("RENEWED")
   }
