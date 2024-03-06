@@ -67,6 +67,6 @@ app.delete('/unsubscribe', async (req, res) => {
 
 app.get('/subscriptions', async (req, res) => {
   console.log("Getting subscriptions");
-  const subscriptions = await subscriptions();
-  res.status(200).send({ subscriptions })
+  const allSubscriptions = await subscriptions();
+  res.status(200).send({ allSubscriptions })
 })
