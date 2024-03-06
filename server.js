@@ -69,9 +69,15 @@ app.post('/subscribe', async (req, res) => {
 // Renews a subscription
 app.post('/renew', async (req, res) => {
   console.log("Renewing");
-  console.log(req);
 
-  // const sub = await renew(subscriptionId);
+  if (!subscriptionId && req?.query?.id) {
+    res.status(400).send("Please supply a subscription id");
+    return;
+  }
+
+  console.log(req.query.id);
+
+  // const sub = await renew(req?.query?.id ? req.query.id : subscriptionId);
   // subscriptionId = sub.id;
 
   res.status(200).send("RENEWED")
