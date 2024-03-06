@@ -70,15 +70,15 @@ app.post('/subscribe', async (req, res) => {
 app.post('/renew', async (req, res) => {
   console.log("Renewing");
 
-  if (!subscriptionId && req?.query?.id) {
+  if (!subscriptionId && !req?.query?.id) {
     res.status(400).send("Please supply a subscription id");
     return;
   }
 
   console.log(req.query.id);
 
-  // const sub = await renew(req?.query?.id ? req.query.id : subscriptionId);
-  // subscriptionId = sub.id;
+  const sub = await renew(req?.query?.id ? req.query.id : subscriptionId);
+  subscriptionId = sub.id;
 
   res.status(200).send("RENEWED")
 })
@@ -87,7 +87,12 @@ app.post('/renew', async (req, res) => {
 app.delete('/unsubscribe', async (req, res) => {
   console.log("Unsubscribing");
 
-  await unsubscribe(subscriptionId);
+  if (!subscriptionId && !req?.query?.id) {
+    res.status(400).send("Please supply a subscription id");
+    return;
+  }
+
+  await unsubscribe(req?.query?.id ? req.query.id : subscriptionId);
   res.status(200).send("UNSUBSCRIBED")
 })
 
