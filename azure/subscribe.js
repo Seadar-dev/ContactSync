@@ -22,6 +22,8 @@ export default async function subscribe() {
 // subscribe()
 
 export async function renew(id) {
+  console.log("RENEWING")
+  console.log("id-" + id);
 
   const client = await auth();
   const subscription = {
@@ -30,6 +32,7 @@ export async function renew(id) {
 
   const res = await client.api(`/subscriptions/${id}`)
     .update(subscription);
+
   console.log(res);
 }
 
