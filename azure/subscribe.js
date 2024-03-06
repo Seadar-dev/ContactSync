@@ -21,14 +21,23 @@ export default async function subscribe() {
 
 // subscribe()
 
-export async function renew() {
+export async function renew(id) {
+  console.log("Renewing")
+
   const client = await auth();
   const subscription = {
     expirationDateTime: expirationDate()
   };
 
-  await client.api('/subscriptions/{id}')
+  const res = await client.api(`/subscriptions/${id}`)
     .update(subscription);
+  console.log(res);
+}
+
+export async function unsubscribe(id) {
+  const client = await auth();
+  await client.api(`/subscriptions/${id}`)
+    .delete();
 }
 
 function expirationDate() {
