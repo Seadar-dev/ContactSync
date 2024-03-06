@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import fixContact from './azure/fixContact.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,8 +14,7 @@ app.listen(PORT, () => {
   console.log(`Webhook server is listening on port ${PORT}`);
 });
 
-app.post('/webhook', (req, res) => {
-  console.log('Webhook event received:', req.body);
+app.post('/webhook', async (req, res) => {
+  await fixContact();
   res.status(200).send('OK');
-
 });
