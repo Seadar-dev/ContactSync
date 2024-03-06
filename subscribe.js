@@ -4,9 +4,9 @@ const client = await auth()
 
 const subscription = {
   changeType: 'created,updated',
-  notificationUrl: 'https://battle-abalone-swamp.glitch.me/webhook',
+  notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
 
-  lifecycleNotificationUrl: 'https://battle-abalone-swamp.glitch.me/webhook/backup',
+  lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
   resource: `/users/${process.env.DIRECTORY_ID}/contactFolders/${process.env.FOLDER_ID}/contacts/`,
   expirationDateTime: '2025-01-01T11:00:00.0000000Z',
   clientState: '123456789'
