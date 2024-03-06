@@ -37,6 +37,14 @@ app.post('/webhook', async (req, res) => {
 
 app.post('/webhook/backup', async (req, res) => {
   console.log("Webhook backup called")
+  //Checks if validation request
+
+  if (req.query && req.query.validationToken) {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.query.validationToken);
+    return;
+  }
+
   console.log(req.body);
   // await renew(req.body)
   res.status(200).send("OK")
@@ -68,5 +76,5 @@ app.delete('/unsubscribe', async (req, res) => {
 app.get('/subscriptions', async (req, res) => {
   console.log("Getting subscriptions");
   const allSubscriptions = await subscriptions();
-  res.status(200).send({ allSubscriptions })
+  res.status(200).send(allSubscriptions)
 })
