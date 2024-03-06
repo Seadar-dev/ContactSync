@@ -35,6 +35,7 @@ export async function renew(id) {
 }
 
 export async function unsubscribe(id) {
+  console.log("Unsubscribing - " + id);
   const client = await auth();
   const res = await client.api(`/subscriptions/${id}`)
     .delete();
