@@ -1,4 +1,5 @@
 import auth from "./auth.js";
+import { expirationDate } from "./utils.js";}
 
 export default async function subscribe() {
   const client = await auth();
@@ -40,9 +41,11 @@ export async function unsubscribe(id) {
     .delete();
 }
 
-function expirationDate() {
-  let expirationDate = new Date();
-  // expirationDate.setDate(expirationDate.getDate() + 6);
-  expirationDate.setMinutes(expirationDate.getMinutes() + 3);
-  return expirationDate;
+export async function subscriptions() {
+  const client = await auth();
+  let subscriptions = await client.api('/subscriptions')
+    .get();
+  console.log(subscriptions);
+  return subscriptions;
 }
+
