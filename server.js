@@ -6,6 +6,8 @@ import subscribe, { renew, subscriptions, unsubscribe } from './azure/subscribe.
 const app = express();
 app.use(bodyParser.json());
 
+var subscriptionId;
+
 //Get request for testing if connection is working
 app.get('/', (req, res) => {
   console.log("Get request called")
@@ -53,7 +55,8 @@ app.post('/webhook/backup', async (req, res) => {
 // Creates a subscription to the above webhook route, should almost never be called
 app.post('/subscribe', async (req, res) => {
   console.log("Subscribing");
-  await subscribe();
+  const sub = await subscribe();
+  subscriptionId = sub.id;
   res.status(200).send("SUBSCRIBED")
 })
 
@@ -75,6 +78,7 @@ app.delete('/unsubscribe', async (req, res) => {
 
 app.get('/subscriptions', async (req, res) => {
   console.log("Getting subscriptions");
+  console.log(subscriptionId);
   const allSubscriptions = await subscriptions();
   res.status(200).send(allSubscriptions)
 })
