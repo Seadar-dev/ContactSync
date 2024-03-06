@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import fixContact from './azure/fixContact.js';
-import subscribe from './subscribe.js';
+import subscribe from './azure/subscribe.js';
 
 const app = express();
 app.use(bodyParser.json());

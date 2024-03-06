@@ -1,7 +1,8 @@
-import auth from "./azure/auth.js";
+import auth from "./auth.js";
 
 export default async function subscribe() {
   const client = await auth();
+  console.log(expirationDate())
 
   const subscription = {
     changeType: 'created,updated',
@@ -18,6 +19,8 @@ export default async function subscribe() {
   return res;
 }
 
+// subscribe()
+
 export async function renew() {
   const client = await auth();
   const subscription = {
@@ -31,6 +34,6 @@ export async function renew() {
 function expirationDate() {
   let expirationDate = new Date();
   // expirationDate.setDate(expirationDate.getDate() + 6);
-  expirationDate.setMinutes(expirationDate.getMinutes + 3);
+  expirationDate.setMinutes(expirationDate.getMinutes() + 3);
   return expirationDate;
 }
