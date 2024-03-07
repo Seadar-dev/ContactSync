@@ -11,7 +11,7 @@ export default async function undoEdit(body) {
   const contact = await masterContact(client, body.spouseName);
   console.log(contact);
   let temp = {};
-  EQUALITY_FIELDS.forEach(field => temp[field] = contact[field]);
+  [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
 
   console.log({ ...temp, spouseName: body.spouseName });

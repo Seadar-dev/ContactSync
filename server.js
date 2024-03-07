@@ -88,7 +88,7 @@ app.post('/subscribe', async (req, res) => {
   console.log("Subscribing");
   const sub = await subscribe();
   subscriptionId = sub.id;
-  res.status(200).send("SUBSCRIBED")
+  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
 })
 
 // Renews a subscription
