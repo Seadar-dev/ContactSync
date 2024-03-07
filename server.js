@@ -43,8 +43,6 @@ app.post('/webhook', async (req, res) => {
 
   switch (req.body.value[0].changeType) {
     case "updated":
-      console.log(req.body.value[0])
-
       await undoEdit(body)
       break;
     case "created":

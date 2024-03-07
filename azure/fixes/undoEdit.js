@@ -7,12 +7,15 @@ export default async function undoEdit(body) {
 
   const isValid = await validateEdit(client, body)
 
+  console.log("Is Valid: ", isValid)
+
   console.log("Undoing Edit")
   return;
 }
 
 async function validateEdit(client, body) {
   const masterContactId = body.spouseName;
+  console.log("1", masterContactId == undefined || masterContactId == null)
   if (masterContactId == undefined || masterContactId == null) return false;
 
   try {
@@ -23,13 +26,21 @@ async function validateEdit(client, body) {
       isSame = isSame && contact[field] === body[field];
       console.log(field, isSame);
     })
+
+
     isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses);
+
+    console.log("2", JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses))
     isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones);
+
+    console.log("3", JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones))
+
     return isSame;
 
     // console.log("Directory Contact: ", body);
     // console.log("Assosciated Master Contact: ", contact);
   } catch (err) {
+    console.log("Did not find: ", masterContactId)
     return false
   }
 }
