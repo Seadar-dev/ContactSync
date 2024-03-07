@@ -38,7 +38,7 @@ app.post('/webhook', async (req, res) => {
   }
 
   const dirtyRequest = req.body.value[0];
-  let body = decrypt(process.env.AZURE_PRIVATE_KEY, body.encryptedContent.dataKey, body.encryptedContent.data);
+  let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
   body.id = dirtyRequest.resourceData.id
 
   switch (req.body.value[0].changeType) {

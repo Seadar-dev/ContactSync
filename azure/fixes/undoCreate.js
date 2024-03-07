@@ -8,6 +8,12 @@ export default async function undoCreate(body) {
   const isValid = await validateCreate(client, body);
   console.log(isValid)
 
+  if (isValid) return;
+
+  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
+
+  console.log(res);
+
   console.log("Undoing Create")
   return;
 }
