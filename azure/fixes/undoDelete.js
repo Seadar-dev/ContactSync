@@ -15,7 +15,11 @@ export default async function undoDelete(body) {
 }
 
 async function validateDelete(client, body) {
-  const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.id === body.spouseName);
+  console.log(body);
+  const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => {
+    console.log(body.spouseName, master.id, master.id === body.spouseName)
+    return master.id === body.spouseName
+  });
 
   console.log(res);
 
