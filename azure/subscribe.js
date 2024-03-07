@@ -5,7 +5,7 @@ export default async function subscribe() {
   const client = await auth();
 
   const subscription = {
-    changeType: 'created,updated',
+    changeType: 'created,updated,deleted',
     notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
     lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
     resource: `${process.env.DIRECTORY_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName`,

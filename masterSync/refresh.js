@@ -17,7 +17,6 @@ export default async function refresh() {
     const newContact = await client.api(`${process.env.DIRECTORY_PATH}`).post({ ...contactToUpload, spouseName: contactToUpload.id });
     //Make the root Master contact generation hold its assosciated Directory contact ID
     const res = await client.api(`${process.env.MASTER_PATH}/${contactToUpload.id}`).patch({ spouseName: newContact.id });
-    console.log(res);
   }
 
 }
