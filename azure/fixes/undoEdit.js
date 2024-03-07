@@ -5,7 +5,9 @@ import { masterContact } from "../../utils.js";
 export default async function undoEdit(body) {
   const client = await auth();
 
-  const isValid = await validateEdit(client, body)
+  const isValid = await validateEdit(client, body);
+
+
 
   console.log("Is Valid: ", isValid)
 
@@ -15,7 +17,6 @@ export default async function undoEdit(body) {
 
 async function validateEdit(client, body) {
   const masterContactId = body.spouseName;
-  console.log("1", masterContactId == undefined || masterContactId == null)
   if (masterContactId == undefined || masterContactId == null) return false;
 
   try {
@@ -30,7 +31,7 @@ async function validateEdit(client, body) {
 
     isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses);
 
-    console.log("2", JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses))
+    console.log("2", JSON.stringify(contact.emailAddresses), JSON.stringify(body.emailAddresses))
     isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones);
 
     console.log("3", JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones))
@@ -46,5 +47,5 @@ async function validateEdit(client, body) {
 }
 
 const EQUALITY_FIELDS = [
-  // "birthday", "generation", "givenName", "title", "surname", "jobTitle"
+  "birthday", "generation", "givenName", "title", "surname", "jobTitle"
 ]
