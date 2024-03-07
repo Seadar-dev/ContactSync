@@ -5,8 +5,8 @@ import { directoryContact, masterContact } from "../../utils.js";
 export default async function undoEdit(body) {
   const client = await auth();
 
-  const isValid = await validateEdit(client, body);
-  if (isValid) return;
+  // const isValid = await validateEdit(client, body);
+  // if (isValid) return;
 
   const contact = await masterContact(client, body.spouseName);
   console.log("Master Contact: ", contact);
