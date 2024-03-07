@@ -4,6 +4,14 @@ import { expirationDate } from "../utils.js";
 export default async function subscribe() {
   const client = await auth();
 
+  console.log("*********************DEBUGGGGGGGGGGGGGGGGGGGGGG****************")
+  console.log(`${process.env.DIRECTORY_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,mobilePhone,title,businessPhones,generation,spouseName`)
+  console.log(expirationDate())
+  console.log(Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'))
+  console.log(process.env.AZURE_ENCRYPTION_ID)
+  console.log("*********************DEBUGGGGGGGGGGGGGGGGGGGGGG****************")
+
+
   const subscription = {
     changeType: 'created,updated',
     notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
