@@ -1,5 +1,5 @@
 import auth from "../auth.js";
-import { masterContact } from "../../utils.js";
+import { directoryContact, masterContact } from "../../utils.js";
 
 
 export default async function undoEdit(body) {
@@ -21,24 +21,25 @@ async function validateEdit(client, body) {
 
   try {
     const contact = await masterContact(client, masterContactId);
+    const directoryCont = await directoryContact(client, body.id)
     let isSame = contact.spouseName == body.id;
 
     console.log("Master: ", contact);
-    console.log("Directory: ", body);
+    console.log("Directory: ", directoryCont);
 
 
     EQUALITY_FIELDS.forEach((field) => {
-      isSame = isSame && contact[field] === body[field];
+      isSame = isSame && contact[field] === directoryCont[field];
       console.log(field, isSame);
     })
 
 
-    isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses);
+    isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(directoryCont.emailAddresses);
 
-    console.log("2", JSON.stringify(contact.emailAddresses), JSON.stringify(body.emailAddresses))
-    isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones);
+    console.log("2", JSON.stringify(contact.emailAddresses), JSON.stringify(directoryCont.emailAddresses))
+    isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(directoryCont.businessPhones);
 
-    console.log("3", JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones))
+    console.log("3", JSON.stringify(contact.businessPhones) === JSON.stringify(directoryCont.businessPhones))
 
     return isSame;
 
