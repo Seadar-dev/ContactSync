@@ -21,7 +21,7 @@ export default async function subscribe() {
   return res;
 }
 
-// subscribe()
+subscribe()
 
 export async function renew(id) {
 
