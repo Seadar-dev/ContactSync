@@ -35,17 +35,20 @@ app.post('/webhook', async (req, res) => {
     res.status(400).send("Invalid request body");
     return;
   }
-  console.log(req.body.value[0])
 
   switch (req.body.value[0].changeType) {
     case "updated":
-      await undoEdit()
+      console.log(req.body.value[0])
+
+      await undoEdit(req.body.value[0])
       break;
     case "created":
-      await undoCreate()
+      await undoCreate(req.body.value[0])
       break;
     case "deleted":
-      await undoDelete()
+      console.log(req.body.value[0])
+
+      await undoDelete(req.body.value[0])
       break;
     default:
       res.status(400).send("Unknown change type");
