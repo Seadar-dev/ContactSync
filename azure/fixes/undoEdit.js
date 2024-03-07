@@ -17,9 +17,21 @@ async function validateEdit(client, body) {
 
   try {
     const contact = await masterContact(client, masterContactId);
-    console.log("Assosciated Master Contact: ", contact)
+    let isSame = true;
+    isSame = isSame && contact.spouseName == body.id;
+    isSame =
+
+      console.log("Directory Contact: ", body);
+    console.log("Assosciated Master Contact: ", contact);
+
+
+
 
   } catch (err) {
     return false
   }
 }
+
+const EQUALITY_FIELDS = [
+  // "fileAs", "displayName", "givenName", "initials", "surname",
+]
