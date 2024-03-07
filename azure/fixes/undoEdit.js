@@ -19,9 +19,9 @@ async function validateEdit(client, body) {
     const contact = await masterContact(client, masterContactId);
     let isSame = true;
     isSame = isSame && contact.spouseName == body.id;
-    isSame =
+    // isSame =
 
-      console.log("Directory Contact: ", body);
+    console.log("Directory Contact: ", body);
     console.log("Assosciated Master Contact: ", contact);
 
 
