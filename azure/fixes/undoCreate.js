@@ -23,7 +23,6 @@ async function validateCreate(client, body) {
 
   try {
     const contact = await masterContact(client, masterContactId);
-    console.log("Assosciated Mater Contact: ", contact)
     return contact.spouseName == body.id;
   } catch (err) {
     return false;

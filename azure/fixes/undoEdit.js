@@ -17,21 +17,23 @@ async function validateEdit(client, body) {
 
   try {
     const contact = await masterContact(client, masterContactId);
-    let isSame = true;
-    isSame = isSame && contact.spouseName == body.id;
-    // isSame =
+    let isSame = isSame && contact.spouseName == body.id;
 
-    console.log("Directory Contact: ", body);
-    console.log("Assosciated Master Contact: ", contact);
+    EQUALITY_FIELDS.forEach((field) => {
+      isSame = isSame && contact[field] === body[field];
+      console.log(field, isSame);
+    })
+    isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(body.emailAddresses);
+    isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(body.businessPhones);
+    return isSame;
 
-
-
-
+    // console.log("Directory Contact: ", body);
+    // console.log("Assosciated Master Contact: ", contact);
   } catch (err) {
     return false
   }
 }
 
 const EQUALITY_FIELDS = [
-  // "fileAs", "displayName", "givenName", "initials", "surname",
+  // "birthday", "generation", "givenName", "title", "surname", "jobTitle"
 ]
