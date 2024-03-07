@@ -40,7 +40,7 @@ async function validateEdit(client, body) {
     // console.log("Directory Contact: ", body);
     // console.log("Assosciated Master Contact: ", contact);
   } catch (err) {
-    console.log("Did not find: ", masterContactId)
+    console.log(err);
     return false
   }
 }
