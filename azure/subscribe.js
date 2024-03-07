@@ -12,7 +12,7 @@ export default async function subscribe() {
     expirationDateTime: expirationDate(),
     clientState: '123456789',
     includeResourceData: true,
-    encryptionCertificate: process.env.AZURE_ENCRYPTION_CERT,
+    encryptionCertificate: Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'),
     encryptionCertificateId: process.env.AZURE_ENCRYPTION_ID,
   };
 
