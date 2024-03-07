@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
 import subscribe, { renew, subscriptions, unsubscribe } from './azure/subscribe.js';
 import refresh from './masterSync/refresh.js';
+import { decrypt } from './utils.js';
 
 const app = express();
 app.use(bodyParser.json());
