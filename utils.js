@@ -20,7 +20,7 @@ export function decrypt(cert, dataKey, data) {
   const decipher = crypto.createDecipheriv('aes-256-cbc', decryptedSymetricKey, iv);
   let decryptedPayload = decipher.update(base64encodedPayload, 'base64', 'utf8');
   decryptedPayload += decipher.final('utf8');
-  console.log(decryptedPayload)
+  return JSON.parse(decryptedPayload)
 }
 
 // Gets the contact from the master directory

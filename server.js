@@ -36,19 +36,23 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
+  const dirtyRequest = req.body.value[0];
+  let body = decrypt(process.env.AZURE_PRIVATE_KEY, body.encryptedContent.dataKey, body.encryptedContent.data);
+  body.id = dirtyRequest.resourceData.id
+
   switch (req.body.value[0].changeType) {
     case "updated":
       console.log(req.body.value[0])
 
-      await undoEdit(req.body.value[0])
+      await undoEdit(body)
       break;
     case "created":
-      await undoCreate(req.body.value[0])
+      await undoCreate(body)
       break;
     case "deleted":
       console.log(req.body.value[0])
 
-      await undoDelete(req.body.value[0])
+      await undoDelete(body)
       break;
     default:
       res.status(400).send("Unknown change type");
