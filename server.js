@@ -49,7 +49,6 @@ app.post('/webhook', async (req, res) => {
       await undoCreate(body)
       break;
     case "deleted":
-      console.log(req.body.value[0])
 
       await undoDelete(body)
       break;

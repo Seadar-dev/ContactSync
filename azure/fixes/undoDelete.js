@@ -1,6 +1,6 @@
 import auth from "../auth.js";
 
-export default async function undoDelete() {
+export default async function undoDelete(body) {
   const client = await auth();
   await validateDelete(client)
 
@@ -9,6 +9,7 @@ export default async function undoDelete() {
 }
 
 async function validateDelete(client, id) {
-  const res = (await client.api(`${process.env.MASTER_PATH}`).get()).find(contact => contact.id === id);
-  console.log(res)
+  const res = (await client.api(`${process.env.MASTER_PATH}`).get())
+  console.log(res);
+
 }
