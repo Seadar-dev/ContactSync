@@ -5,7 +5,6 @@ export default async function undoCreate(body) {
   const client = await auth();
 
   const isValid = await validateCreate(client, body);
-  console.log(isValid)
 
   if (isValid) return;
 
