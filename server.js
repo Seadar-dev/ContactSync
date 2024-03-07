@@ -1,7 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import fixContact from './azure/fixContact.js';
+import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
 import subscribe, { renew, subscriptions, unsubscribe } from './azure/subscribe.js';
+import refresh from './masterSync/refresh.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,11 +31,29 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
-  console.log(JSON.stringify(req.body));
+  if (!req?.body?.value[0]?.changeType) {
+    res.status(400).send("Invalid request body");
+    return;
+  }
+  console.log(req.body.value[0])
 
+  switch (req.body.value[0].changeType) {
+    case "updated":
+      await undoEdit()
+      break;
+    case "created":
+      await undoCreate()
+      break;
+    case "deleted":
+      await undoDelete()
+      break;
+    default:
+      res.status(400).send("Unknown change type");
+      return;
 
-  await fixContact();
-  res.status(200).send("OK")
+  }
+
+  res.status(200).send("Contact fixed successfully");
 });
 
 // THIS IS THE WEBHOOK LIFECYCLE, ONLY CALLED BY AZURE
@@ -103,4 +122,11 @@ app.get('/subscriptions', async (req, res) => {
   console.log(subscriptionId);
   const allSubscriptions = await subscriptions();
   res.status(200).send(allSubscriptions)
+})
+
+//Refreshes the whole list of contacts
+app.post('/refresh', async (req, res) => {
+  console.log("Refreshing contacts");
+  await refresh();
+  res.status(200).send("OK")
 })

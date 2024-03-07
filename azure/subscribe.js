@@ -1,5 +1,5 @@
 import auth from "./auth.js";
-import { expirationDate } from "./utils.js";
+import { expirationDate } from "../utils.js";
 
 export default async function subscribe() {
   const client = await auth();
@@ -8,8 +8,9 @@ export default async function subscribe() {
     changeType: 'created,updated',
     notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
     lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
-    resource: `/users/${process.env.DIRECTORY_ID}/contactFolders/${process.env.FOLDER_ID}/contacts?$select=emailAddresses,id,jobTitle,birthday,givenName,surname`,
+    resource: `${process.env.DIRECTORY_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,mobilePhone,title,businessPhones,generation,spouseName`,
     expirationDateTime: expirationDate(),
+
     clientState: '123456789',
     includeResourceData: true,
     encryptionCertificate: Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'),
