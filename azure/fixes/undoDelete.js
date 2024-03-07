@@ -5,7 +5,7 @@ export default async function undoDelete(body) {
   const isValid = await validateDelete(client, body)
   if (isValid) return true;
 
-  const contactToUpload = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.id === id);
+  const contactToUpload = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.spouseName === body.id);
 
   const newContact = await client.api(`${process.env.DIRECTORY_PATH}`).post({ ...contactToUpload, spouseName: contactToUpload.id });
   const res = await client.api(`${process.env.MASTER_PATH}/${contactToUpload.id}`).patch({ spouseName: newContact.id });
