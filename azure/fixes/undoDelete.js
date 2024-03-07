@@ -17,6 +17,8 @@ export default async function undoDelete(body) {
 async function validateDelete(client, id) {
   const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.id === id);
 
+  console.log(await await client.api(`${process.env.MASTER_PATH}`).get()).value)
+
   console.log(res);
 
   if (!res) return true;
