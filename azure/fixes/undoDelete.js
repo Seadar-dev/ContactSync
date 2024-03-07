@@ -14,14 +14,13 @@ export default async function undoDelete(body) {
   return;
 }
 
-async function validateDelete(client, id) {
-  console.log("BODY ID: " + id);
-  const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.id === id);
+async function validateDelete(client, body) {
+  const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.id === body.spouseName);
 
   console.log(res);
 
   if (!res) return true;
-  if (res.spouseName !== id) return true;
+  if (res.spouseName !== body.id) return true;
   return false;
 
 }
