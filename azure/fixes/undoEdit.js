@@ -9,7 +9,7 @@ export default async function undoEdit(body) {
   console.log("Is Valid: ", isValid)
 
 
-  const contact = await masterContact(client, masterContactId);
+  const contact = await masterContact(client, body.spouseName);
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...contact, spouseName: body.spouseName });
   console.log(res);
 
