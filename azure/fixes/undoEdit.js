@@ -23,6 +23,10 @@ async function validateEdit(client, body) {
     const contact = await masterContact(client, masterContactId);
     let isSame = contact.spouseName == body.id;
 
+    console.log("Master: ", contact);
+    console.log("Directory: ", body);
+
+
     EQUALITY_FIELDS.forEach((field) => {
       isSame = isSame && contact[field] === body[field];
       console.log(field, isSame);
