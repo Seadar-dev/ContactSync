@@ -1,14 +1,25 @@
 import auth from "../auth.js";
+import { masterContact } from "../../utils.js";
 
-export default async function undoEdit() {
+
+export default async function undoEdit(body) {
   const client = await auth();
 
-  const isValid = await validateEdit(client)
+  const isValid = await validateEdit(client, body)
 
   console.log("Undoing Edit")
   return;
 }
 
-function validateEdit() {
+async function validateEdit(client, body) {
+  const masterContactId = body.spouseName;
+  if (masterContactId == undefined || masterContactId == null) return false;
 
+  try {
+    const contact = await masterContact(client, masterContactId);
+    console.log("Assosciated Master Contact: ", contact)
+
+  } catch (err) {
+    return false
+  }
 }

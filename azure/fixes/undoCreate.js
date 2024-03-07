@@ -2,7 +2,6 @@ import { masterContact } from "../../utils.js";
 import auth from "../auth.js";
 
 export default async function undoCreate(body) {
-  console.log("Cleaned body: ", body)
   const client = await auth();
 
   const isValid = await validateCreate(client, body);
