@@ -8,7 +8,7 @@ export default async function undoCreate(body) {
 
   // if (isValid) return;
 
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
+  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
 
   console.log(res);
 
