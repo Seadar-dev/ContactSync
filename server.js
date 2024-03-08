@@ -63,10 +63,10 @@ app.post('/webhook', async (req, res) => {
       await undoEdit(body, logChange)
       break;
     case "created":
-      await undoCreate(body)
+      await undoCreate(body, logChange)
       break;
     case "deleted":
-      await undoDelete(body)
+      await undoDelete(body, logChange)
       break;
     default:
       res.status(400).send("Unknown change type");
