@@ -27,8 +27,6 @@ app.listen(PORT, () => {
 // THIS IS THE WEBHOOK CALLBACK, ONLY CALLED BY AZURE
 app.post('/webhook', async (req, res) => {
   console.log("Webhook called")
-  console.log(req?.body?.value[0])
-
 
   // Validates validation request
   if (req.query && req.query.validationToken) {
