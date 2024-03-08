@@ -13,6 +13,8 @@ export default async function undoEdit(body, addChangeKey) {
   // const test = await directoryContact(client, body.id);
 
   // console.log(test)
+  console.log(body)
+
 
   const contact = await masterContact(client, body.spouseName);
   console.log("Master Contact: ", contact);

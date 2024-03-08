@@ -5,11 +5,7 @@ export default async function undoCreate(body) {
   const client = await auth();
   console.log("Undoing Create")
 
-
-  // const isValid = await validateCreate(client, body);
-
-  // if (isValid) return;
-
+  console.log(body)
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
 
   console.log(res);
@@ -17,15 +13,15 @@ export default async function undoCreate(body) {
   return;
 }
 
-async function validateCreate(client, body) {
-  const masterContactId = body.spouseName;
-  if (masterContactId == undefined || masterContactId == null) return false;
+// async function validateCreate(client, body) {
+//   const masterContactId = body.spouseName;
+//   if (masterContactId == undefined || masterContactId == null) return false;
 
-  try {
-    const contact = await masterContact(client, masterContactId);
-    return contact.spouseName == body.id;
-  } catch (err) {
-    return false;
-  }
+//   try {
+//     const contact = await masterContact(client, masterContactId);
+//     return contact.spouseName == body.id;
+//   } catch (err) {
+//     return false;
+//   }
 
-}
+// }

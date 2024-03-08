@@ -4,7 +4,10 @@ export default async function undoDelete(body, addChangeKey) {
   const client = await auth();
 
   const isValid = await validateDelete(client, body)
-  if (isValid) return;
+  if (isValid) {
+    console.log("Validated Delete")
+    return;
+  }
 
   console.log("Undoing Delete")
 
@@ -20,10 +23,7 @@ export default async function undoDelete(body, addChangeKey) {
 }
 
 async function validateDelete(client, body) {
-  console.log("BODY: ", body);
   const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.spouseName === body.id);
-
-  console.log("Found: ", res);
 
   if (!res) return true;
   return false;
