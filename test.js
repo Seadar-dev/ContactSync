@@ -21,7 +21,7 @@ export default async function test() {
 
   const SirMasterTestingDir = await directoryContact(client, "AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAAZdNAAA=")
 
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).patch({ spouseName: "test2" });
+  const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).patch({ generation: "fifth" });
 
   console.log(res);
 }

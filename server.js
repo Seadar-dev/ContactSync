@@ -44,7 +44,7 @@ app.post('/webhook', async (req, res) => {
   let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
   body.id = dirtyRequest.resourceData.id
 
-  const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 2);
+  const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
   console.log(`CHECKING KEY ${changeKey}`);
 
   if (verifiedChanges.has(changeKey)) {
