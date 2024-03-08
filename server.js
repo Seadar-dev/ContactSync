@@ -1,9 +1,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
-import subscribe, { renew, subscriptions, unsubscribe } from './azure/subscribe.js';
+import subscribe, { masterSubscribe, renew, subscriptions, unsubscribe } from './azure/subscribe.js';
 import refresh from './masterSync/refresh.js';
 import { decrypt } from './utils.js';
+import masterEdit from './masterSync/masterEdit.js';
+import masterCreate from './masterSync/masterCreate.js';
+import masterDelete from './masterSync/masterDelete.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -155,4 +158,63 @@ app.post('/refresh', async (req, res) => {
 app.get('/changekeys', async (req, res) => {
   console.log("Pending changekeys");
   res.status(200).send(JSON.stringify(verifiedChanges))
+})
+
+app.post('/masterWebhook', async (req, res) => {
+  console.log("Master Webhook called")
+
+  // Validates validation request
+  if (req.query && req.query.validationToken) {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.query.validationToken);
+    return;
+  }
+
+  if (!req?.body?.value[0]?.changeType) {
+    res.status(400).send("Invalid request body");
+    return;
+  }
+
+  switch (req.body.value[0].changeType) {
+
+    case "updated":
+      await masterEdit(body, logChange)
+      break;
+    case "created":
+      await masterCreate(body, logChange)
+      break;
+    case "deleted":
+      await masterDelete(body, logChange)
+      break;
+    default:
+      res.status(400).send("Unknown change type");
+      return;
+  }
+
+  res.status(200).send("Contact fixed successfully");
+});
+
+app.post('/masterWebhook/backup', async (req, res) => {
+  console.log("Master Webhook backup called")
+
+  // Validates validation request
+  if (req.query && req.query.validationToken) {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.query.validationToken);
+    return;
+  }
+  if (req?.body?.value[0]?.lifecycleEvent) {
+    const sub = await renew(req?.body?.value[0]?.subscriptionId);
+    subscriptionId = sub.id;
+    res.status(200).send("RENEWED");
+    return;
+  }
+
+  res.status(200).send("OK")
+});
+
+app.post('/masterSubscribe', async (req, res) => {
+  console.log("Subscribing to Master");
+  const sub = await masterSubscribe();
+  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
 })

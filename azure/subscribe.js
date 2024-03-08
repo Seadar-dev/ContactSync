@@ -53,3 +53,23 @@ export async function subscriptions() {
   return subscriptions;
 }
 
+export async function masterSubscribe() {
+  const client = await auth();
+
+  const subscription = {
+    changeType: 'created,updated,deleted',
+    notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
+    lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
+    resource: `${process.env.MASTER_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName`,
+    expirationDateTime: expirationDate(),
+
+    clientState: '123456789',
+    includeResourceData: true,
+    encryptionCertificate: Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'),
+    encryptionCertificateId: process.env.AZURE_ENCRYPTION_ID,
+  };
+
+  const res = await client.api('/subscriptions').post(subscription);
+  console.log(res);
+  return res;
+}
