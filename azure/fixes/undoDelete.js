@@ -2,8 +2,8 @@ import auth from "../auth.js";
 
 export default async function undoDelete(body, addChangeKey) {
   const client = await auth();
-  // const isValid = await validateDelete(client, body)
-  // if (isValid) return true;
+  const isValid = await validateDelete(client, body)
+  if (isValid) return true;
 
   const contactToUpload = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.spouseName === body.id);
 
