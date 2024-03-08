@@ -1,4 +1,4 @@
-import auth from "../azure/auth";
+import auth from "../azure/auth.js";
 
 export default async function masterCreate(body, logChange) {
   console.log("Master Create");
