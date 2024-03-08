@@ -28,6 +28,7 @@ app.post('/webhook', async (req, res) => {
 
   if (bypassHook) {
     bypassHook = false;
+    console.log(bypassHook, req.body.value[0].changeType);
     return;
   }
 
@@ -46,6 +47,7 @@ app.post('/webhook', async (req, res) => {
   const dirtyRequest = req.body.value[0];
   let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
   body.id = dirtyRequest.resourceData.id
+  body.etag = dirtyRequest.resourceData["@odata.etag"];
 
   bypassHook = true
 

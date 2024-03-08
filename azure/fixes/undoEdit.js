@@ -8,13 +8,18 @@ export default async function undoEdit(body) {
   // const isValid = await validateEdit(client, body);
   // if (isValid) return;
 
-  const contact = await masterContact(client, body.spouseName);
-  console.log("Master Contact: ", contact);
-  let temp = {};
-  [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
+  console.log(body);
+  const test = await directoryContact(client, body.id);
 
-  console.log("New Contact: ", { ...temp, spouseName: body.spouseName });
+  console.log(test)
+
+  // const contact = await masterContact(client, body.spouseName);
+  // console.log("Master Contact: ", contact);
+  // let temp = {};
+  // [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
+  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
+
+  // console.log("New Contact: ", { ...temp, spouseName: body.spouseName });
   // console.log(res);
 
   return;
