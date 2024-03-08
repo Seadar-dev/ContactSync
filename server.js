@@ -45,13 +45,21 @@ app.post('/webhook', async (req, res) => {
   const dirtyRequest = req.body.value[0];
   let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
   body.id = dirtyRequest.resourceData.id
-  body.etag = dirtyRequest.resourceData["@odata.etag"];
+
+  const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 2);
+  console.log(`CHECKING KEY ${changeKey}`);
+
+  if (verifiedChanges.has(changeKey)) {
+    verifiedChanges.delete(changeKey);
+    console.log("Validated Change")
+    return;
+  }
 
 
   switch (req.body.value[0].changeType) {
 
     case "updated":
-      await undoEdit(body)
+      await undoEdit(body, logChange)
       break;
     case "created":
       await undoCreate(body)
@@ -141,4 +149,9 @@ app.post('/refresh', async (req, res) => {
   console.log("Refreshing contacts");
   await refresh();
   res.status(200).send("OK")
+})
+
+app.get('/changekeys', async (req, res) => {
+  console.log("Pending changekeys");
+  res.status(200).send(JSON.stringify(verifiedChanges))
 })

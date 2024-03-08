@@ -5,6 +5,8 @@ import { directoryContact, masterContact } from "../../utils.js";
 export default async function undoEdit(body, addChangeKey) {
   const client = await auth();
 
+  console.log("Fixing: " + body.id);
+
   // const isValid = await validateEdit(client, body);
   // if (isValid) return;
 
@@ -12,11 +14,13 @@ export default async function undoEdit(body, addChangeKey) {
 
   // console.log(test)
 
-  // const contact = await masterContact(client, body.spouseName);
-  // console.log("Master Contact: ", contact);
-  // let temp = {};
-  // [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
-  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
+  const contact = await masterContact(client, body.spouseName);
+  console.log("Master Contact: ", contact);
+  let temp = {};
+  [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
+  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
+
+  addChangeKey(res.changeKey);
 
   // console.log("New Contact: ", { ...temp, spouseName: body.spouseName });
   // console.log(res);
