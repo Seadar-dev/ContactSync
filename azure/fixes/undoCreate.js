@@ -4,15 +4,15 @@ import auth from "../auth.js";
 export default async function undoCreate(body) {
   const client = await auth();
 
+
   // const isValid = await validateCreate(client, body);
 
   // if (isValid) return;
 
-  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
+  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
 
   console.log(res);
 
-  console.log("Undoing Create")
   return;
 }
 

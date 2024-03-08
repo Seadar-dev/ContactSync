@@ -2,6 +2,10 @@ import auth from "../auth.js";
 
 export default async function undoDelete(body, addChangeKey) {
   const client = await auth();
+  console.log("Undoing Delete")
+
+
+
   const isValid = await validateDelete(client, body)
   if (isValid) return true;
 
@@ -11,7 +15,6 @@ export default async function undoDelete(body, addChangeKey) {
   addChangeKey(newContact.changeKey);
   const res = await client.api(`${process.env.MASTER_PATH}/${contactToUpload.id}`).patch({ spouseName: newContact.id });
 
-  console.log("Undoing Delete")
   return;
 }
 
