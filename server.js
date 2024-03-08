@@ -148,7 +148,7 @@ app.get('/subscriptions', async (req, res) => {
 //Refreshes the whole list of contacts
 app.post('/refresh', async (req, res) => {
   console.log("Refreshing contacts");
-  await refresh();
+  await refresh(logChange);
   res.status(200).send("OK")
 })
 
