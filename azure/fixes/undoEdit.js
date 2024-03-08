@@ -33,30 +33,30 @@ export default async function undoEdit(body, addChangeKey) {
   return;
 }
 
-async function validateEdit(client, body) {
-  const masterContactId = body.spouseName;
-  if (masterContactId == undefined || masterContactId == null) return false;
+// async function validateEdit(client, body) {
+//   const masterContactId = body.spouseName;
+//   if (masterContactId == undefined || masterContactId == null) return false;
 
-  try {
-    const contact = await masterContact(client, masterContactId);
-    const directoryCont = await directoryContact(client, body.id)
-    let isSame = contact.spouseName == body.id;
+//   try {
+//     const contact = await masterContact(client, masterContactId);
+//     const directoryCont = await directoryContact(client, body.id)
+//     let isSame = contact.spouseName == body.id;
 
-    EQUALITY_FIELDS.forEach((field) => {
-      isSame = isSame && contact[field] === directoryCont[field];
-    })
+//     EQUALITY_FIELDS.forEach((field) => {
+//       isSame = isSame && contact[field] === directoryCont[field];
+//     })
 
-    isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(directoryCont.emailAddresses);
+//     isSame = isSame && JSON.stringify(contact.emailAddresses) === JSON.stringify(directoryCont.emailAddresses);
 
-    isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(directoryCont.businessPhones);
+//     isSame = isSame && JSON.stringify(contact.businessPhones) === JSON.stringify(directoryCont.businessPhones);
 
-    return isSame;
+//     return isSame;
 
-  } catch (err) {
-    console.log(err);
-    return true;
-  }
-}
+//   } catch (err) {
+//     console.log(err);
+//     return true;
+//   }
+// }
 
 const EQUALITY_FIELDS = [
   "birthday", "generation", "givenName", "title", "surname", "jobTitle"
