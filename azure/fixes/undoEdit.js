@@ -14,7 +14,7 @@ export default async function undoEdit(body, addChangeKey) {
 
   // console.log(test)
 
-  const contact = await masterContact(client, body.spouseName);
+  const contact = await masterContact(client, body.spouseName.substring(3));
   console.log("Master Contact: ", contact);
   let temp = {};
   [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
