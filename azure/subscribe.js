@@ -58,8 +58,8 @@ export async function masterSubscribe() {
 
   const subscription = {
     changeType: 'created,updated,deleted',
-    notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
-    lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
+    notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook',
+    lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook/backup',
     resource: `${process.env.MASTER_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName`,
     expirationDateTime: expirationDate(),
 
