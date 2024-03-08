@@ -174,6 +174,7 @@ app.post('/masterWebhook', async (req, res) => {
     res.status(400).send("Invalid request body");
     return;
   }
+  body = req.body.value[0];
 
   switch (req.body.value[0].changeType) {
 
