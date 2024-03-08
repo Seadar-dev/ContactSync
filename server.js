@@ -49,9 +49,12 @@ app.post('/webhook', async (req, res) => {
 
   if (verifiedChanges.has(changeKey)) {
     verifiedChanges.delete(changeKey);
-    console.log("Validated Change")
+    console.log("Validated Change");
+    res.status(200).send("OK");
+
     return;
   }
+  console.log(verifiedChanges)
 
 
   switch (req.body.value[0].changeType) {
