@@ -3,6 +3,7 @@ import auth from "../auth.js";
 
 export default async function undoCreate(body) {
   const client = await auth();
+  console.log("Undoing Create")
 
 
   // const isValid = await validateCreate(client, body);
