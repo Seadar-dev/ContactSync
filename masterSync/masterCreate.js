@@ -5,7 +5,9 @@ export default async function masterCreate(body, logChange) {
 
   const client = await auth();
 
-  const newContact = await client.api(process.env.DIRECTORY_PATH).post({ ...body, spouseName: body.id });
+  console.log(JSON.stringify({ ...body, spouseName: body.id }))
+
+  const newContact = await client.api(process.env.DIRECTORY_PATH).post(JSON.stringify({ ...body, spouseName: body.id }));
 
   logChange(newContact.changeKey);
 
