@@ -9,7 +9,9 @@ const app = express();
 app.use(bodyParser.json());
 
 var subscriptionId = null;
-var bypassHook = false;
+const verifiedChanges = new Set();
+const logChange = (changeKey) => verifiedChanges.add(changeKey)
+
 
 //Get request for testing if connection is working
 app.get('/', (req, res) => {
@@ -25,12 +27,8 @@ app.listen(PORT, () => {
 // THIS IS THE WEBHOOK CALLBACK, ONLY CALLED BY AZURE
 app.post('/webhook', async (req, res) => {
   console.log("Webhook called")
+  console.log(req?.body?.value[0])
 
-  if (bypassHook) {
-    bypassHook = false;
-    console.log(bypassHook, req.body.value[0].changeType);
-    return;
-  }
 
   // Validates validation request
   if (req.query && req.query.validationToken) {
@@ -49,7 +47,6 @@ app.post('/webhook', async (req, res) => {
   body.id = dirtyRequest.resourceData.id
   body.etag = dirtyRequest.resourceData["@odata.etag"];
 
-  bypassHook = true
 
   switch (req.body.value[0].changeType) {
 

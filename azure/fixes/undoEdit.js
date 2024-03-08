@@ -2,16 +2,15 @@ import auth from "../auth.js";
 import { directoryContact, masterContact } from "../../utils.js";
 
 
-export default async function undoEdit(body) {
+export default async function undoEdit(body, addChangeKey) {
   const client = await auth();
 
   // const isValid = await validateEdit(client, body);
   // if (isValid) return;
 
-  console.log(body);
-  const test = await directoryContact(client, body.id);
+  // const test = await directoryContact(client, body.id);
 
-  console.log(test)
+  // console.log(test)
 
   // const contact = await masterContact(client, body.spouseName);
   // console.log("Master Contact: ", contact);

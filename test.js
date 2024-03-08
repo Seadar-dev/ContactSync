@@ -17,9 +17,13 @@ export default async function test() {
   // const msg = decrypt(process.env.AZURE_PRIVATE_KEY, datakey, data)
   // console.log(msg);
 
+  const id = "AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAAZdNAAA=";
+
   const SirMasterTestingDir = await directoryContact(client, "AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAAZdNAAA=")
 
-  console.log(SirMasterTestingDir);
+  const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).patch({ spouseName: "test" });
+
+  console.log(res);
 }
 test();
 
