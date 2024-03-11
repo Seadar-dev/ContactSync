@@ -19,15 +19,12 @@ async function getAccessToken() {
   const clientCredentialRequest = {
     scopes: ["https://graph.microsoft.com/.default"]
   };
-
   const res = await cca.acquireTokenByClientCredential(clientCredentialRequest)
   return res.accessToken;
 }
 
 
 export default async function auth() {
-
-
   let clientOptions = {
     authProvider: {
       getAccessToken
@@ -35,8 +32,5 @@ export default async function auth() {
   };
 
   const client = Client.initWithMiddleware(clientOptions);
-
-
-
   return client
 }

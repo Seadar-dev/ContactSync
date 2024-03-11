@@ -1,7 +1,8 @@
 import auth from "./auth.js";
 import { SUBBED_FIELDS, expirationDate } from "../utils.js";
 
-export default async function subscribe(path, urlRoute) {
+//An Abstract subscribe function. Makes a subscription given certain parameters
+async function subscribe(path, urlRoute) {
   const client = await auth();
 
   const subscription = {
@@ -23,6 +24,7 @@ export default async function subscribe(path, urlRoute) {
   return res;
 }
 
+//Renew's the subscription -- Autotmatically called when needed
 export async function renew(id) {
 
   const client = await auth();
@@ -36,6 +38,7 @@ export async function renew(id) {
   return res
 }
 
+// Unsubscribes from one specific subscription
 export async function unsubscribe(id) {
   console.log("Unsubscribing - " + id);
   const client = await auth();
@@ -43,6 +46,8 @@ export async function unsubscribe(id) {
     .delete();
   console.log(res);
 }
+
+// Unsubscribes from every active subscription
 
 export async function unsubscribeAll(subs) {
   const client = await auth();
@@ -55,6 +60,7 @@ export async function unsubscribeAll(subs) {
   return "SUCCESS"
 }
 
+//Gets all the subscriptions
 export async function subscriptions() {
   const client = await auth();
   let subscriptions = await client.api('/subscriptions')
@@ -63,11 +69,14 @@ export async function subscriptions() {
   return subscriptions;
 }
 
+// Subscribes a webhook pointed at the Master, notifying the Heroku Server
+
 export async function masterSubscribe() {
   const res = await subscribe(process.env.MASTER_PATH, "masterWebhook")
   return res;
 }
 
+// Subscribes a webhook pointed at the Directory, notifying the Heroku Server
 export async function directorySubscribe() {
   const res = await subscribe(process.env.DIRECTORY_PATH, "webhook")
   return res;

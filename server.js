@@ -7,9 +7,15 @@ import { cleanBody, decrypt } from './utils.js';
 import masterEdit from './masterSync/masterEdit.js';
 import masterCreate from './masterSync/masterCreate.js';
 import masterDelete from './masterSync/masterDelete.js';
+import subsciptionsRoute from "./routes/subscriptions.js"
+
 
 const app = express();
 app.use(bodyParser.json());
+
+
+app.use('subscriptions', subsciptionsRoute);
+
 
 var subscriptionId = null;
 const verifiedChanges = new Set();
@@ -223,13 +229,13 @@ app.delete('/unsubscribe/all', async (req, res) => {
   res.status(200).send("OK")
 })
 
-//Gets a list of all active subscriptions
-app.get('/subscriptions', async (req, res) => {
-  console.log("Getting subscriptions");
-  console.log(subscriptionId);
-  const allSubscriptions = await subscriptions();
-  res.status(200).send(allSubscriptions)
-})
+// //Gets a list of all active subscriptions
+// app.get('/subscriptions', async (req, res) => {
+//   console.log("Getting subscriptions");
+//   console.log(subscriptionId);
+//   const allSubscriptions = await subscriptions();
+//   res.status(200).send(allSubscriptions)
+// })
 
 //Refreshes the whole list of contacts
 app.post('/refresh', async (req, res) => {

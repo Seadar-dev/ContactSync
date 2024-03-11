@@ -18,16 +18,11 @@ export default async function masterCreate(body, logChange) {
     return;
   }
 
-
   let temp = {};
   SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
   const newContact = await client.api(process.env.DIRECTORY_PATH).post({ ...temp, spouseName: body.id });
-
-  // console.log(JSON.stringify({ ...body, spouseName: body.id }))
-
-  // const newContact = await client.api(process.env.DIRECTORY_PATH).post(JSON.stringify({ ...body, spouseName: body.id }));
 
   logChange(newContact.changeKey);
 

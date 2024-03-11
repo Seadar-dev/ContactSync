@@ -1,5 +1,6 @@
 import auth from "../auth.js";
 
+//Reverts the invalidated delete
 export default async function undoDelete(body, addChangeKey) {
   const client = await auth();
 
@@ -23,6 +24,7 @@ export default async function undoDelete(body, addChangeKey) {
   return;
 }
 
+//Since the information of this contact is deleted, we need to check the Master in order to retrieve it's information
 async function validateDelete(client, body) {
   const res = (await client.api(`${process.env.MASTER_PATH}`).get()).value.find(master => master.spouseName === body.id);
 

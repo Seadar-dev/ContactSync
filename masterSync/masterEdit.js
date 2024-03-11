@@ -5,8 +5,6 @@ import { masterContact, SUBBED_FIELDS } from "../utils.js";
 //Reads the edit of the master contact, and updates the directory contact
 export default async function masterEdit(body, logChange) {
   console.log("Master Edit");
-
-
   const client = await auth();
 
   let contact;
@@ -16,7 +14,6 @@ export default async function masterEdit(body, logChange) {
     console.log(err)
     return;
   }
-
 
   let temp = {};
   SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
