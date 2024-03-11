@@ -16,11 +16,14 @@ export default async function masterEdit(body, logChange) {
     return;
   }
 
+  console.log("Contact: " + contact)
+
+  if (!contact.spouseName || !body.id) return;
+
   let temp = {};
   SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
-  console.log("Directory ID: " + contact.spouseName)
   const fixedContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });
 
   logChange(fixedContact.changeKey);
