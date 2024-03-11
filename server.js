@@ -13,18 +13,26 @@ import subsciptionsRoute from "./routes/subscriptions.js"
 const app = express();
 app.use(bodyParser.json());
 
-app.use('/subscriptions', subsciptionsRoute);
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Webhook server is listening on port ${PORT}`);
+});
 
-var subscriptionId = null;
-const verifiedChanges = new Set();
-const logChange = (changeKey) => verifiedChanges.add(changeKey)
+//Maintains a running Set of the changes IDs that should not be propagated
+//Our webhook triggers when the directory changes, and we in turn change it again -- that change we make is considered validated and is included in this Set
+app.locals.verifiedChanges = new Set();
+//A function for adding to the set
 
-const validChangeKey = (dirtyRequest, res) => {
+app.locals.logChange = (changeKey) => app.locals.verifiedChanges.add(changeKey)
+
+//Checks if the changeKey is in the set, true if it needs to be reverted
+//If the change is valid, removes the changeKey from the set. sends an OK
+const invalidChangeKey = (dirtyRequest, res) => {
   const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
   console.log(`CHECKING KEY ${changeKey}`);
-  if (verifiedChanges.has(changeKey)) {
-    verifiedChanges.delete(changeKey);
+  if (app.locals.verifiedChanges.has(changeKey)) {
+    app.locals.verifiedChanges.delete(changeKey);
     console.log("Validated Change");
     res.status(200).send("OK");
 
@@ -33,17 +41,8 @@ const validChangeKey = (dirtyRequest, res) => {
   return true
 }
 
+app.use('/subscriptions', subsciptionsRoute);
 
-//Get request for testing if connection is working
-app.get('/', (req, res) => {
-  console.log("Get request called")
-  res.send('Webhook server is running');
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Webhook server is listening on port ${PORT}`);
-});
 
 // THIS IS THE WEBHOOK CALLBACK, ONLY CALLED BY AZURE
 app.post('/webhook', async (req, res) => {
@@ -67,7 +66,7 @@ app.post('/webhook', async (req, res) => {
 
   console.log(body);
 
-  const isValid = validChangeKey(dirtyRequest, res);
+  const isValid = invalidChangeKey(dirtyRequest, res);
   if (!isValid) return;
 
 
@@ -130,7 +129,7 @@ app.post('/masterWebhook', async (req, res) => {
 
   const body = cleanBody(req);
 
-  const isValid = validChangeKey(dirtyRequest, res);
+  const isValid = invalidChangeKey(dirtyRequest, res);
   if (!isValid) return;
 
   switch (req.body.value[0].changeType) {
@@ -228,14 +227,6 @@ app.delete('/unsubscribe/all', async (req, res) => {
   res.status(200).send("OK")
 })
 
-// //Gets a list of all active subscriptions
-// app.get('/subscriptions', async (req, res) => {
-//   console.log("Getting subscriptions");
-//   console.log(subscriptionId);
-//   const allSubscriptions = await subscriptions();
-//   res.status(200).send(allSubscriptions)
-// })
-
 //Refreshes the whole list of contacts
 app.post('/refresh', async (req, res) => {
   console.log("Refreshing contacts");
@@ -245,7 +236,7 @@ app.post('/refresh', async (req, res) => {
 
 app.get('/changekeys', async (req, res) => {
   console.log("Pending changekeys");
-  res.status(200).send(JSON.stringify(verifiedChanges))
+  res.status(200).send(JSON.stringify(app.locals.verifiedChanges))
 })
 
 
