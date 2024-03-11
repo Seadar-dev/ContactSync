@@ -8,9 +8,14 @@ export default async function masterCreate(body, logChange) {
 
   const client = await auth();
 
-  const contact = await masterContact(client, body.id);
+  let contact;
+  try {
+    contact = await masterContact(client, body.id);
+  } catch (err) {
+    console.log("Master contact not found in Create");
+    return;
+  }
 
-  console.log(contact)
 
   let temp = {};
   [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
