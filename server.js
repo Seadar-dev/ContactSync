@@ -172,6 +172,7 @@ app.post('/masterWebhook', async (req, res) => {
     res.status(400).send("Invalid request body");
     return;
   }
+  console.log(req.body.value[0]);
 
   const body = cleanBody(req);
 

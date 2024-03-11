@@ -1,43 +1,13 @@
 {
-  "subscriptionId": "fea2f033-eec2-4ec2-9d03-629f16edd515",
-  "subscriptionExpirationDateTime": "2024-03-08T18:45:45.23663+00:00",
-  "changeType": "created",
-  "resource": "Users('931e6295-61b0-44de-a178-18fb4f9e7842')/contacts('AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAABUXAAA=')",
-  "clientState": "123456789",
-  "tenantId": "dc570e78-7680-4fa7-9c96-beb913e2f523",
-  "encryptedContent": {
-    "data": "rSX67Q83wcpYSQrF+bVgP76VQu5n7hn+CLpBAyHJ4SvZMgqX6ZIuFx5biQvxXvmiWugQs3yzdn5yUTnUUa9AnFuwDOW+S2PB2PqsN47s4JXrG+H89yupitgd7XPb1D31hFthBFjwIyJosYyZLwwUNFuXuEwAE2i/DogwVTUohnE0xfG4I8Loaz7QMb+HpVgWidV/bKCKr2KeEDPtoJCkbXipPWYS4FwcrriHJikdBouq87WI4iYwVk4FbKhbUgF/2XTbntekiyMA+TwKB1h+UuZpDGscJuNXeGM0JK7KUnivEBMBgEQ9fTuTobvPue+f5F9djmeWph0ibt8ERrr/9Z8kg3O5foiMYAVJSbBROKUi2bxcghVqi/67liYtDWNVD047e32bhBs4UCuJxbg41599Us4sKX/TO8UR+RcydZ3aq+xszILOeI4FCuUIM+1motZxTEJx98uB4/e5Xlk6wNcm+r7n2ZWXwfy4wwxXy/GiTu5sEqG818PM+JPz5UdrSpbMdwv9g23gw+hl54Rcnw==",
-    "dataKey": "GrcWSKUUEUwmBce5NlQa/4LZkXiMcxiYRFXRidHiPSX2kkjGQ1H85KKN355TxnMCP6QY9exkF1HqJ2oGimH9x4ZxfkZ5MfyZdT8kKBG8/13mBPYDDq5Qtl5sKsRMMsDZq3GlAyYLTfiZf7K7yh6m3A0eK17YcxhHgr3PcxY8YExAmTNbbEff780fk49/xmOb+2P9D3z/bdLHhLGRn+7jV2nyWLPRHsQjRPZ80Ukvt/kZePMl2jE337Sr2hiOQ3k1i+VNIgX9EcRbE/BxkGgM5uKqDjRO7GxL6a2HuXBf1KV0R0jXkWYS7mTQyJtw70ZBR/XlVvtReDNI35xgFdTIhQ==",
-    "dataSignature": "ZTirgEndYxiKnURKi5w0ZqAOa/lpFoAUx5k0r5otMJ8=",
-    "encryptionCertificateId": "https://contactsyncvault.vault.azure.net/certificates/contactSyncCert/13f1e673f35f4004b7df4cd4abbb6880",
-    "encryptionCertificateThumbprint": "1277B995A9A2A1082B6AA34C689C4F1923AED44C"
-  },
-  "resourceData": {
-    "@odata.type": "#microsoft.graph.contact",
-    "@odata.id": "Users('931e6295-61b0-44de-a178-18fb4f9e7842')/contacts('AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAABUXAAA=')",
-    "@odata.etag": "W/'EQAAABYAAAB3gke+SN33QInYpZ0MWwuWAAAAAEff'",
-    "id": "AAMkADkyYzcwNNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAABUXAAA="
-  },
-
-  "second": {
-    "subscriptionId": "47d23fd3-e26b-46c1-99d2-d261b2f33b4e",
-    "subscriptionExpirationDateTime": "2024-03-09T20:33:26.2885129+00:00",
-    "changeType": "created",
-    "resource": "Users('8dd7ba35-0d8c-478a-9637-569aa4168905')/contacts('AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA=')",
-    "clientState": "123456789",
-    "tenantId": "dc570e78-7680-4fa7-9c96-beb913e2f523",
-    "encryptedContent": {
-      "data": "8+sOIPL2TOaIC3Ute3xtITKN19N/7hYE4QYi3LcKWeXJUtT6g1RBOJhI66CQFB/MY3g5adzlgbH8R+fPHJGL1MiehDT366iliShmvRcnMRoUPqRj6HJMBPiEhIxZjIyMGzKEludJTYCm/+44lS3bYvjSsozAsMUXXuvqk8QbcEWHABH85asZyiw+okct9mSDoixHAn8I0RoN5szRdF7VySh8WruJYiBRfw0k8jaZfxL5QNpYjdbh/7sOvNfpsG/+//BjTjqcqNR3aYl2IBrnOg==",
-      "dataKey": "y1Q/xIBYFadJ0iCZNumhRuMydeo4jgmbkyT9TfTBRaUbPvtQoPgRfrakTuBKDCsbcIWVooGXkOQ/IeELPH+u5vKfzK3zfkqCUw9dvRkYAUzvnSCg/eb8U3K6AwAtf0qTxixq1Y7coOTvcca72YsdtjoUYFrZbffcCB3U6GX3EpHODpeRmlX3fPTAQ+atpTtMGn9fWiED/gj1OW3TryNmeDxvKNU3cbTAv6c+LPsjPkyY7E1Lj757/iUSbBg0BiAsHE8KEJvWff1Ulttfk22xwqxzAFiAxf58FNPlYBxKXAQDkifyD95pg3JtXVcufi2Z1Cgdt0YWe7NUMManMOylbg==",
-      "dataSignature": "BY27sgMOgQKmbEEJ8mvQqUpbPhZWQasWgo97lrapubo=",
-      "encryptionCertificateId": "https://contactsyncvault.vault.azure.net/certificates/contactSyncCert/13f1e673f35f4004b7df4cd4abbb6880",
-      "encryptionCertificateThumbprint": "1277B995A9A2A1082B6AA34C689C4F1923AED44C"
-    },
-    "resourceData": {
-      "@odata.type": "#microsoft.graph.contact",
-      "@odata.id": "Users('8dd7ba35-0d8c-478a-9637-569aa4168905')/contacts('AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA=')",
-      "@odata.etag": "W/\"EQAAABQAAABfYMZ8UzrPQpH1NJKEvxpeAADEhg==\"",
-      "id": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA="
-    }
-  }
+  "birthday": null,
+  "givenName": "Create",
+  "surname": "User",
+  "title": "",
+  "generation": "",
+  "jobTitle": "dude",
+  "businessPhones@odata.type": "#Collection(String)",
+  "businessPhones": ["(090) 898-7878"],
+  "spouseName": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA=",
+  "emailAddresses": [{ "@odata.type": "#microsoft.graph.emailAddress" }],
+  "id": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA="
 }

@@ -8,21 +8,24 @@ dotenv.config();
 export default async function test() {
   const client = await auth();
 
-  // const SirMasterTestingDir = await directoryContact(client, "AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAApDOAAA=")
-  // console.log(SirMasterTestingDir);
+  const body = {
+    "birthday": null,
+    "givenName": "Create",
+    "surname": "User",
+    "title": "",
+    "generation": "",
+    "jobTitle": "dude",
+    "businessPhones@odata.type": "#Collection(String)",
+    "businessPhones": ["(090) 898-7878"],
+    "spouseName": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA=",
 
-  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).patch({ generation: "fifth" });
+    "id": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA="
+  }
 
-  // console.log(res);
-  // const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).expand("extensions").get();
 
-  const id = "AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAApDjAAA="
+  const newContact = await client.api(process.env.DIRECTORY_PATH).post(JSON.stringify(body));
 
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${id}`).delete();
 
-  console.log(res);
-
-  // await refresh();
 }
 test();
 
