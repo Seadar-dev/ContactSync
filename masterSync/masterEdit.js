@@ -1,4 +1,5 @@
 import auth from "../azure/auth.js";
+import { masterContact } from "../utils.js";
 
 
 export default async function masterEdit(body, logChange) {
