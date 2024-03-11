@@ -11,6 +11,7 @@ import subsciptionsRoute from "./routes/subscriptions.js"
 import subscribeRoute from "./routes/subscribe.js";
 import renewRoute from "./routes/renew.js";
 import unsubscribeRoute from "./routes/unsubscribe.js";
+import refreshRouter from "./routes/refresh.js";
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,6 +20,8 @@ app.use('/subscriptions', subsciptionsRoute);
 app.use('/subscribe', subscribeRoute);
 app.use('/renew', renewRoute);
 app.use('/unsubscribe', unsubscribeRoute);
+app.use('/refresh', refreshRouter);
+
 
 
 
@@ -176,17 +179,4 @@ app.post('/masterWebhook/backup', async (req, res) => {
 
   res.status(200).send("OK")
 });
-
-//Refreshes the whole list of contacts
-app.post('/refresh', async (req, res) => {
-  console.log("Refreshing contacts");
-  await refresh(logChange);
-  res.status(200).send("OK")
-})
-
-app.get('/changekeys', async (req, res) => {
-  console.log("Pending changekeys");
-  res.status(200).send(JSON.stringify(app.locals.verifiedChanges))
-})
-
 
