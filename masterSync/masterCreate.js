@@ -1,6 +1,7 @@
 import auth from "../azure/auth.js";
-import { masterContact, SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS } from "../utils.js";
+import { masterContact, SUBBED_FIELDS } from "../utils.js";
 
+//Reads the create of a Master Contact, and matches the create in the directory
 export default async function masterCreate(body, logChange) {
   console.log("Master Create");
 
@@ -19,7 +20,7 @@ export default async function masterCreate(body, logChange) {
 
 
   let temp = {};
-  [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
+  SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
   const newContact = await client.api(process.env.DIRECTORY_PATH).post({ ...temp, spouseName: body.id });

@@ -1,11 +1,14 @@
 import crypto from 'crypto';
 
+//Makes a subscription expiration date, six days after issuing
 export function expirationDate() {
   let expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 6);
   return expirationDate;
 }
 
+//Decrypts the contents of the webhook into a JSON object
+// Microsoft API is very secure with that content
 export function decrypt(cert, dataKey, data) {
   const base64encodedKey = dataKey; /*'base 64 encoded dataKey value' */
   const asymetricPrivateKey = cert/*'pem encoded private key'; */
@@ -23,6 +26,7 @@ export function decrypt(cert, dataKey, data) {
   return JSON.parse(decryptedPayload)
 }
 
+//Given a req, decrypts and formats it into a clean Contact object
 export function cleanBody(req) {
   const dirtyRequest = req.body.value[0];
   let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
@@ -40,11 +44,9 @@ export async function directoryContact(client, id) {
   return await client.api(`${process.env.DIRECTORY_PATH}/${id}`).get();
 }
 
-export const SUBBED_STRING_FIELDS = [
-  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department",
+//These are all the fields that we subscribe to of the contact. When included here, the fields will sync
+//SpouseName is used as a shared ID, it is required
+export const SUBBED_FIELDS = [
+  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones"
 
-]
-
-export const SUBBED_ARRAY_FIELDS = [
-  "emailAddresses", "businessPhones"
 ]

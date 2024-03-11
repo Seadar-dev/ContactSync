@@ -1,5 +1,6 @@
 import auth from "../azure/auth.js";
 
+//Reads the delete of a Master Contact, and matches the delete in the directory
 export default async function masterDelete(body, logChange) {
   console.log("Master Delete");
   const client = await auth();

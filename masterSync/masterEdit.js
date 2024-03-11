@@ -1,7 +1,8 @@
 import auth from "../azure/auth.js";
-import { SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS, masterContact } from "../utils.js";
+import { masterContact, SUBBED_FIELDS } from "../utils.js";
 
 
+//Reads the edit of the master contact, and updates the directory contact
 export default async function masterEdit(body, logChange) {
   console.log("Master Edit");
 
@@ -18,7 +19,7 @@ export default async function masterEdit(body, logChange) {
 
 
   let temp = {};
-  [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
+  SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
   const newContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });

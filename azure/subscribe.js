@@ -1,5 +1,5 @@
 import auth from "./auth.js";
-import { SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS, expirationDate } from "../utils.js";
+import { SUBBED_FIELDS, expirationDate } from "../utils.js";
 
 export default async function subscribe(path, urlRoute) {
   const client = await auth();
@@ -8,7 +8,7 @@ export default async function subscribe(path, urlRoute) {
     changeType: 'created,updated,deleted',
     notificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}`,
     lifecycleNotificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}/backup`,
-    resource: `${path}?$select=${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`,
+    resource: `${path}?$select=${SUBBED_FIELDS.join()}`,
     // resource: `${path}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName,middleName,companyName,department`,
     expirationDateTime: expirationDate(),
 
