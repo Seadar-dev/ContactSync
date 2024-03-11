@@ -211,8 +211,7 @@ app.delete('/unsubscribe/all', async (req, res) => {
     res.status(400).send("No subscriptions found");
     return;
   }
-  const res = await unsubscribeAll(allSubscriptions.value)
-    ;
+  await unsubscribeAll(allSubscriptions.value);
 
   res.status(200).send("OK")
 })
