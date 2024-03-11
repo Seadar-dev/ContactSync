@@ -13,10 +13,7 @@ export function decrypt(cert, dataKey, data) {
   const base64encodedKey = dataKey; /*'base 64 encoded dataKey value' */
   const asymetricPrivateKey = cert/*'pem encoded private key'; */
   const decodedKey = Buffer.from(base64encodedKey, 'base64');
-
-
   const decryptedSymetricKey = crypto.privateDecrypt(asymetricPrivateKey, decodedKey);
-
   const base64encodedPayload = data /*'base64 encoded value from data property'*/;
   const iv = Buffer.alloc(16, 0);
   decryptedSymetricKey.copy(iv, 0, 0, 16);
@@ -48,5 +45,4 @@ export async function directoryContact(client, id) {
 //SpouseName is used as a shared ID, it is required
 export const SUBBED_FIELDS = [
   "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones"
-
 ]

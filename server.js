@@ -11,6 +11,8 @@ import masterWebhookRouter from "./routes/masterWebhook.js";
 const app = express();
 app.use(bodyParser.json());
 
+
+// ROUTES
 app.use('/subscriptions', subsciptionsRoute);
 app.use('/subscribe', subscribeRoute);
 app.use('/renew', renewRoute);
@@ -20,12 +22,13 @@ app.use('/webhook', webhookRouter);
 app.use('/masterWebhook', masterWebhookRouter);
 
 
-
-
+// LISTENER
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Webhook server is listening on port ${PORT}`);
 });
+
+// LOCALS
 
 //Maintains a running Set of the changes IDs that should not be propagated
 //Our webhook triggers when the directory changes, and we in turn change it again -- that change we make is considered validated and is included in this Set

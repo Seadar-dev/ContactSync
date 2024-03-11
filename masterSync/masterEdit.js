@@ -9,6 +9,7 @@ export default async function masterEdit(body, logChange) {
 
   let contact;
   try {
+    console.log("fetching: " + body.id)
     contact = await masterContact(client, body.id);
   } catch (err) {
     console.log(err)
@@ -19,9 +20,8 @@ export default async function masterEdit(body, logChange) {
   SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
-  const newContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });
+  console.log("Directory ID: " + contact.spouseName)
+  const fixedContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });
 
-  logChange(newContact.changeKey);
-
-  return;
+  logChange(fixedContact.changeKey);
 }
