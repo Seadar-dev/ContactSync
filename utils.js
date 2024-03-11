@@ -24,7 +24,7 @@ export function decrypt(cert, dataKey, data) {
 }
 
 export function cleanBody(req) {
-  console.log("RAW REQ:", req)
+  console.log("RAW REQ:", req.body)
   const dirtyRequest = req.body.value[0];
   let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
   body.id = dirtyRequest.resourceData.id;
