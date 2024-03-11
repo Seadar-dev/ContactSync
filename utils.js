@@ -23,6 +23,13 @@ export function decrypt(cert, dataKey, data) {
   return JSON.parse(decryptedPayload)
 }
 
+export function cleanBody(req) {
+  const dirtyRequest = req.body.value[0];
+  let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
+  body.id = dirtyRequest.resourceData.id;
+  return body;
+}
+
 // Gets the contact from the master directory
 export async function masterContact(client, id) {
   return await client.api(`${process.env.MASTER_PATH}/${id}`).get();

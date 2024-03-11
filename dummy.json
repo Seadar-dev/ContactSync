@@ -17,5 +17,27 @@
     "@odata.id": "Users('931e6295-61b0-44de-a178-18fb4f9e7842')/contacts('AAMkADkyYzcwNmNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAABUXAAA=')",
     "@odata.etag": "W/'EQAAABYAAAB3gke+SN33QInYpZ0MWwuWAAAAAEff'",
     "id": "AAMkADkyYzcwNNiLWFiMDAtNDg1OC05NTkwLTUwMjBmOTk1NGJjMwBGAAAAAACnxXzxFZ7YS5DJ7xpznyfgBwB3gke_SN33QInYpZ0MWwuWAAAAABEYAAB3gke_SN33QInYpZ0MWwuWAAAAABUXAAA="
+  },
+
+  "second": {
+    "subscriptionId": "47d23fd3-e26b-46c1-99d2-d261b2f33b4e",
+    "subscriptionExpirationDateTime": "2024-03-09T20:33:26.2885129+00:00",
+    "changeType": "created",
+    "resource": "Users('8dd7ba35-0d8c-478a-9637-569aa4168905')/contacts('AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA=')",
+    "clientState": "123456789",
+    "tenantId": "dc570e78-7680-4fa7-9c96-beb913e2f523",
+    "encryptedContent": {
+      "data": "8+sOIPL2TOaIC3Ute3xtITKN19N/7hYE4QYi3LcKWeXJUtT6g1RBOJhI66CQFB/MY3g5adzlgbH8R+fPHJGL1MiehDT366iliShmvRcnMRoUPqRj6HJMBPiEhIxZjIyMGzKEludJTYCm/+44lS3bYvjSsozAsMUXXuvqk8QbcEWHABH85asZyiw+okct9mSDoixHAn8I0RoN5szRdF7VySh8WruJYiBRfw0k8jaZfxL5QNpYjdbh/7sOvNfpsG/+//BjTjqcqNR3aYl2IBrnOg==",
+      "dataKey": "y1Q/xIBYFadJ0iCZNumhRuMydeo4jgmbkyT9TfTBRaUbPvtQoPgRfrakTuBKDCsbcIWVooGXkOQ/IeELPH+u5vKfzK3zfkqCUw9dvRkYAUzvnSCg/eb8U3K6AwAtf0qTxixq1Y7coOTvcca72YsdtjoUYFrZbffcCB3U6GX3EpHODpeRmlX3fPTAQ+atpTtMGn9fWiED/gj1OW3TryNmeDxvKNU3cbTAv6c+LPsjPkyY7E1Lj757/iUSbBg0BiAsHE8KEJvWff1Ulttfk22xwqxzAFiAxf58FNPlYBxKXAQDkifyD95pg3JtXVcufi2Z1Cgdt0YWe7NUMManMOylbg==",
+      "dataSignature": "BY27sgMOgQKmbEEJ8mvQqUpbPhZWQasWgo97lrapubo=",
+      "encryptionCertificateId": "https://contactsyncvault.vault.azure.net/certificates/contactSyncCert/13f1e673f35f4004b7df4cd4abbb6880",
+      "encryptionCertificateThumbprint": "1277B995A9A2A1082B6AA34C689C4F1923AED44C"
+    },
+    "resourceData": {
+      "@odata.type": "#microsoft.graph.contact",
+      "@odata.id": "Users('8dd7ba35-0d8c-478a-9637-569aa4168905')/contacts('AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA=')",
+      "@odata.etag": "W/\"EQAAABQAAABfYMZ8UzrPQpH1NJKEvxpeAADEhg==\"",
+      "id": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviGAAA="
+    }
   }
 }

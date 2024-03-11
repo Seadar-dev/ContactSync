@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
 import subscribe, { masterSubscribe, renew, subscriptions, unsubscribe } from './azure/subscribe.js';
 import refresh from './masterSync/refresh.js';
-import { decrypt } from './utils.js';
+import { cleanBody, decrypt } from './utils.js';
 import masterEdit from './masterSync/masterEdit.js';
 import masterCreate from './masterSync/masterCreate.js';
 import masterDelete from './masterSync/masterDelete.js';
@@ -43,9 +43,7 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
-  const dirtyRequest = req.body.value[0];
-  let body = decrypt(process.env.AZURE_PRIVATE_KEY, dirtyRequest.encryptedContent.dataKey, dirtyRequest.encryptedContent.data);
-  body.id = dirtyRequest.resourceData.id
+  const body = cleanBody(req);
 
   const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
   console.log(`CHECKING KEY ${changeKey}`);
@@ -174,7 +172,8 @@ app.post('/masterWebhook', async (req, res) => {
     res.status(400).send("Invalid request body");
     return;
   }
-  const body = req.body.value[0];
+
+  const body = cleanBody(req);
 
   switch (req.body.value[0].changeType) {
 
