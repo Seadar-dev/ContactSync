@@ -6,6 +6,8 @@ export default async function masterEdit(body, logChange) {
 
   const client = await auth();
 
+  console.log(body)
+
   let contact;
   try {
     contact = await masterContact(client, body.id);
