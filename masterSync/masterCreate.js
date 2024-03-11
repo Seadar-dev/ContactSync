@@ -10,6 +10,7 @@ export default async function masterCreate(body, logChange) {
 
   let contact;
   try {
+    console.log("fetching: " + body.id)
     contact = await masterContact(client, body.id);
   } catch (err) {
     console.log("Master contact not found in Create");

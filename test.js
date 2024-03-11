@@ -12,16 +12,20 @@ export default async function test() {
 
   // console.log(`${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`)
 
-  const contact = await masterContact(client, "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviPAAA=");
   // console.log(res);
 
-  const id = "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBvieAAA="
+  const id = "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBvigAAA="
+
+  const res = await masterContact(client, id);
 
 
-  const res = await client.api(`${process.env.MASTER_PATH}/${id}`).get();
+  // console.log(`${process.env.DIRECTORY_PATH}/${id}`)
   console.log(res);
+
+
+
 }
-test();
+// test();
 
 
 
