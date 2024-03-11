@@ -3,7 +3,7 @@ import auth from "../azure/auth.js";
 
 export default async function masterEdit(body, logChange) {
   console.log("Master Edit");
-  console.log(body.id)
+
 
   const client = await auth();
 
@@ -11,7 +11,7 @@ export default async function masterEdit(body, logChange) {
   try {
     contact = await masterContact(client, body.id);
   } catch (err) {
-    console.log("Master contact not found in Create");
+    console.log(err)
     return;
   }
 

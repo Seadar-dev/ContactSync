@@ -14,7 +14,7 @@ export default async function test() {
 
   // console.log(res);
 
-  const id = "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBvigAAA="
+  const id = "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviiAAA="
 
   const res = await masterContact(client, id);
 
@@ -25,7 +25,7 @@ export default async function test() {
 
 
 }
-// test();
+test();
 
 
 
