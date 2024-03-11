@@ -16,7 +16,7 @@ export default async function masterEdit(body, logChange) {
     return;
   }
 
-  console.log("Contact: " + contact)
+  console.log("Contact: ", contact)
 
   if (!contact.spouseName || !body.id) return;
 
