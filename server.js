@@ -8,10 +8,16 @@ import masterEdit from './masterSync/masterEdit.js';
 import masterCreate from './masterSync/masterCreate.js';
 import masterDelete from './masterSync/masterDelete.js';
 import subsciptionsRoute from "./routes/subscriptions.js"
-
+import subscribeRoute from "./routes/subscribe.js";
+import renewRoute from "./routes/renew.js";
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use('/subscriptions', subsciptionsRoute);
+app.use('/subscribe', subscribeRoute);
+app.use('/renew', renewRoute);
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -43,7 +49,6 @@ const invalidChangeKey = (dirtyRequest, res) => {
   return true
 }
 
-app.use('/subscriptions', subsciptionsRoute);
 
 
 // THIS IS THE WEBHOOK CALLBACK, ONLY CALLED BY AZURE
@@ -105,7 +110,6 @@ app.post('/webhook/backup', async (req, res) => {
   }
   if (req?.body?.value[0]?.lifecycleEvent) {
     const sub = await renew(req?.body?.value[0]?.subscriptionId);
-    subscriptionId = sub.id;
     res.status(200).send("RENEWED");
     return;
   }
@@ -164,7 +168,6 @@ app.post('/masterWebhook/backup', async (req, res) => {
   }
   if (req?.body?.value[0]?.lifecycleEvent) {
     const sub = await renew(req?.body?.value[0]?.subscriptionId);
-    subscriptionId = sub.id;
     res.status(200).send("RENEWED");
     return;
   }
@@ -172,49 +175,17 @@ app.post('/masterWebhook/backup', async (req, res) => {
   res.status(200).send("OK")
 });
 
-// Creates a subscription to the above webhook route, should almost never be called
-app.post('/subscribe', async (req, res) => {
-  console.log("Subscribing");
-  const sub = await directorySubscribe();
-  subscriptionId = sub.id;
-  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
-})
-
-
-app.post('/masterSubscribe', async (req, res) => {
-  console.log("Subscribing to Master");
-  const sub = await masterSubscribe();
-  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
-})
-
-// Renews a subscription
-app.post('/renew', async (req, res) => {
-  console.log("Renewing");
-
-  if (!subscriptionId && !req?.query?.id) {
-    res.status(400).send("Please supply a subscription id");
-    return;
-  }
-
-  console.log(req.query.id);
-
-  const sub = await renew(req?.query?.id ? req.query.id : subscriptionId);
-  subscriptionId = sub.id;
-
-  res.status(200).send("RENEWED")
-})
-
 //Removes a subscription, should only be called when dismantling the system
 app.delete('/unsubscribe', async (req, res) => {
   console.log("Unsubscribing");
 
-  if (!subscriptionId && !req?.query?.id) {
+  if (!req?.query?.id) {
     res.status(400).send("Please supply a subscription id");
     return;
   }
 
-  await unsubscribe(req?.query?.id ? req.query.id : subscriptionId);
-  subscriptionId = null;
+  await unsubscribe(req?.query?.id ?);
+
   res.status(200).send("UNSUBSCRIBED")
 })
 
