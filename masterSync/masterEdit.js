@@ -21,7 +21,7 @@ export default async function masterEdit(body, logChange) {
   [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
-  const newContact = await client.api(process.env.DIRECTORY_PATH).patch({ ...temp, spouseName: body.id });
+  const newContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });
 
   logChange(newContact.changeKey);
 
