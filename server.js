@@ -13,8 +13,7 @@ import subsciptionsRoute from "./routes/subscriptions.js"
 const app = express();
 app.use(bodyParser.json());
 
-console.log(subsciptionsRoute)
-app.use('subscriptions', () => console.log("test"));
+app.use('/subscriptions', subsciptionsRoute);
 
 
 var subscriptionId = null;
