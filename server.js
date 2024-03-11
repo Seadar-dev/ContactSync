@@ -29,7 +29,8 @@ app.listen(PORT, () => {
 
 // THIS IS THE WEBHOOK CALLBACK, ONLY CALLED BY AZURE
 app.post('/webhook', async (req, res) => {
-  console.log("Webhook called")
+  console.log("Webhook called");
+
 
   // Validates validation request
   if (req.query && req.query.validationToken) {
@@ -43,7 +44,10 @@ app.post('/webhook', async (req, res) => {
     return;
   }
 
+  const dirtyRequest = req.body.value[0];
   const body = cleanBody(req);
+
+  console.log(dirtyRequest);
 
   const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
   console.log(`CHECKING KEY ${changeKey}`);
@@ -55,7 +59,7 @@ app.post('/webhook', async (req, res) => {
 
     return;
   }
-  console.log(verifiedChanges)
+  console.log(verifiedChanges);
 
 
   switch (req.body.value[0].changeType) {
