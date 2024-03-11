@@ -41,7 +41,7 @@ export async function directoryContact(client, id) {
 }
 
 export const SUBBED_STRING_FIELDS = [
-  "id", "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department",
+  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department",
 
 ]
 
