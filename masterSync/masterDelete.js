@@ -9,6 +9,4 @@ export default async function masterDelete(body, logChange) {
   if (!contactToDelete) return;
 
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${contactToDelete.id}`).delete();
-  console.log(res)
-  logChange(res.changeKey)
 }
