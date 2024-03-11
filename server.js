@@ -10,6 +10,7 @@ import masterDelete from './masterSync/masterDelete.js';
 import subsciptionsRoute from "./routes/subscriptions.js"
 import subscribeRoute from "./routes/subscribe.js";
 import renewRoute from "./routes/renew.js";
+import unsubscribeRoute from "./routes/unsubscribe.js";
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use('/subscriptions', subsciptionsRoute);
 app.use('/subscribe', subscribeRoute);
 app.use('/renew', renewRoute);
+app.use('/unsubscribe', unsubscribeRoute);
 
 
 
@@ -174,31 +176,6 @@ app.post('/masterWebhook/backup', async (req, res) => {
 
   res.status(200).send("OK")
 });
-
-//Removes a subscription, should only be called when dismantling the system
-app.delete('/unsubscribe', async (req, res) => {
-  console.log("Unsubscribing");
-
-  if (!req?.query?.id) {
-    res.status(400).send("Please supply a subscription id");
-    return;
-  }
-
-  await unsubscribe(req?.query?.id ?);
-
-  res.status(200).send("UNSUBSCRIBED")
-})
-
-app.delete('/unsubscribe/all', async (req, res) => {
-  const allSubscriptions = await subscriptions();
-  if (!allSubscriptions.value) {
-    res.status(400).send("No subscriptions found");
-    return;
-  }
-  await unsubscribeAll(allSubscriptions.value);
-
-  res.status(200).send("OK")
-})
 
 //Refreshes the whole list of contacts
 app.post('/refresh', async (req, res) => {

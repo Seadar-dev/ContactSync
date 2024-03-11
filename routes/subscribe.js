@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 })
 
 //Creates a subscription to the master
-app.post('/master', async (req, res) => {
+router.post('/master', async (req, res) => {
   console.log("Subscribing to Master");
   const sub = await masterSubscribe();
   res.status(200).send(`SUBSCRIBED: ${sub.id}`)
