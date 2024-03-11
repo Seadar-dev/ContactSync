@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
-import { directorySubscribe, masterSubscribe, renew, subscriptions, unsubscribe } from './azure/subscribe.js';
+import { directorySubscribe, masterSubscribe, renew, subscriptions, unsubscribe, unsubscribeAll } from './azure/subscribe.js';
 import refresh from './masterSync/refresh.js';
 import { cleanBody, decrypt } from './utils.js';
 import masterEdit from './masterSync/masterEdit.js';
@@ -203,6 +203,18 @@ app.delete('/unsubscribe', async (req, res) => {
   await unsubscribe(req?.query?.id ? req.query.id : subscriptionId);
   subscriptionId = null;
   res.status(200).send("UNSUBSCRIBED")
+})
+
+app.delete('/unsubscribe/all', async (req, res) => {
+  const allSubscriptions = await subscriptions();
+  if (!allSubscriptions.value) {
+    res.status(400).send("No subscriptions found");
+    return;
+  }
+  const res = await unsubscribeAll(allSubscriptions.value)
+    ;
+
+  res.status(200).send("OK")
 })
 
 //Gets a list of all active subscriptions

@@ -1,5 +1,5 @@
 import auth from "../azure/auth.js";
-import { masterContact } from "../utils.js";
+import { masterContact, SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS } from "../utils.js";
 
 export default async function masterCreate(body, logChange) {
   console.log("Master Create");

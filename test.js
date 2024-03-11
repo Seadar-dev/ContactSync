@@ -1,31 +1,18 @@
 import auth from "./azure/auth.js";
 
-import { decrypt, directoryContact, masterContact } from "./utils.js";
+import { SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS, decrypt, directoryContact, masterContact } from "./utils.js";
 import dotenv from 'dotenv';
 import refresh from "./masterSync/refresh.js";
+import { directorySubscribe, masterSubscribe } from "./azure/subscribe.js";
 dotenv.config();
 
 export default async function test() {
   const client = await auth();
 
-  const body = {
-    "birthday": null,
-    "givenName": "Create",
-    "surname": "User",
-    "title": "",
-    "generation": "",
-    "jobTitle": "dude",
-    "businessPhones@odata.type": "#Collection(String)",
-    "businessPhones": ["(090) 898-7878"],
-    "spouseName": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA=",
 
-    "id": "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviKAAA="
-  }
+  // console.log(`${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`)
 
-
-  const newContact = await client.api(process.env.DIRECTORY_PATH).post(JSON.stringify(body));
-
-
+  const sub = await directorySubscribe();
 }
 test();
 
