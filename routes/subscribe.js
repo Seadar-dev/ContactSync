@@ -3,7 +3,7 @@ import { directorySubscribe, masterSubscribe } from '../azure/subscribe.js';
 const router = express.Router()
 
 // Creates a subscription to thew directory
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   console.log("Subscribing");
   const sub = await directorySubscribe();
   res.status(200).send(`SUBSCRIBED: ${sub.id}`)
