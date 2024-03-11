@@ -8,5 +8,4 @@ router.get('/', async (req, res) => {
   const allSubscriptions = await subscriptions();
   res.status(200).send(allSubscriptions)
 })
-
 export default router;
