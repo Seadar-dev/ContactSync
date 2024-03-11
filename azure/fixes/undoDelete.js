@@ -18,6 +18,7 @@ export default async function undoDelete(body, addChangeKey) {
   addChangeKey(newContact.changeKey);
 
   const res = await client.api(`${process.env.MASTER_PATH}/${contactToUpload.id}`).patch({ spouseName: newContact.id });
+  addChangeKey(res.changeKey);
 
   return;
 }
