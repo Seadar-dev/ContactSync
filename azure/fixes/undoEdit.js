@@ -1,5 +1,5 @@
 import auth from "../auth.js";
-import { directoryContact, masterContact } from "../../utils.js";
+import { SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS, directoryContact, masterContact } from "../../utils.js";
 
 
 export default async function undoEdit(body, addChangeKey) {
@@ -21,14 +21,11 @@ export default async function undoEdit(body, addChangeKey) {
   const contact = await masterContact(client, body.spouseName);
   console.log("Master Contact: ", contact);
   let temp = {};
-  [...EQUALITY_FIELDS, "emailAddresses", "businessPhones"].forEach(field => temp[field] = contact[field]);
+  [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
 
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
 
   addChangeKey(res.changeKey);
-
-  // console.log("New Contact: ", { ...temp, spouseName: body.spouseName });
-  // console.log(res);
 
   return;
 }
@@ -57,7 +54,3 @@ export default async function undoEdit(body, addChangeKey) {
 //     return true;
 //   }
 // }
-
-const EQUALITY_FIELDS = [
-  "birthday", "generation", "givenName", "title", "surname", "jobTitle"
-]

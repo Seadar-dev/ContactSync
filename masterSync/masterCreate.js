@@ -16,7 +16,3 @@ export default async function masterCreate(body, logChange) {
   return;
 
 }
-
-const EQUALITY_FIELDS = [
-  "birthday", "generation", "givenName", "title", "surname", "jobTitle"
-]

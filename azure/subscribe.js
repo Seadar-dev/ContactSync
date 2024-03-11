@@ -1,14 +1,14 @@
 import auth from "./auth.js";
-import { expirationDate } from "../utils.js";
+import { SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS, expirationDate } from "../utils.js";
 
-export default async function subscribe() {
+export default async function subscribe(path, urlRoute) {
   const client = await auth();
 
   const subscription = {
     changeType: 'created,updated,deleted',
-    notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook',
-    lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/webhook/backup',
-    resource: `${process.env.DIRECTORY_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName`,
+    notificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}`,
+    lifecycleNotificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}/backup`,
+    resource: `${path}?$select=${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`,
     expirationDateTime: expirationDate(),
 
     clientState: '123456789',
@@ -21,8 +21,6 @@ export default async function subscribe() {
   console.log(res);
   return res;
 }
-
-// subscribe()
 
 export async function renew(id) {
 
@@ -54,22 +52,11 @@ export async function subscriptions() {
 }
 
 export async function masterSubscribe() {
-  const client = await auth();
+  const res = await subscribe(process.env.MASTER_PATH, "masterWebhook")
+  return res;
+}
 
-  const subscription = {
-    changeType: 'created,updated,deleted',
-    notificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook',
-    lifecycleNotificationUrl: 'https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook/backup',
-    resource: `${process.env.MASTER_PATH}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName`,
-    expirationDateTime: expirationDate(),
-
-    clientState: '123456789',
-    includeResourceData: true,
-    encryptionCertificate: Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'),
-    encryptionCertificateId: process.env.AZURE_ENCRYPTION_ID,
-  };
-
-  const res = await client.api('/subscriptions').post(subscription);
-  console.log(res);
+export async function directorySubscribe() {
+  const res = await subscribe(process.env.DIRECTORY_PATH, "webhook")
   return res;
 }

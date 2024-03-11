@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { undoEdit, undoCreate, undoDelete } from "./azure/fixes/index.js";
-import subscribe, { masterSubscribe, renew, subscriptions, unsubscribe } from './azure/subscribe.js';
+import { directorySubscribe, masterSubscribe, renew, subscriptions, unsubscribe } from './azure/subscribe.js';
 import refresh from './masterSync/refresh.js';
 import { cleanBody, decrypt } from './utils.js';
 import masterEdit from './masterSync/masterEdit.js';
@@ -47,7 +47,7 @@ app.post('/webhook', async (req, res) => {
   const dirtyRequest = req.body.value[0];
   const body = cleanBody(req);
 
-  console.log(dirtyRequest);
+  console.log(body);
 
   const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
   console.log(`CHECKING KEY ${changeKey}`);
@@ -103,11 +103,74 @@ app.post('/webhook/backup', async (req, res) => {
   res.status(200).send("OK")
 });
 
+app.post('/masterWebhook', async (req, res) => {
+  console.log("Master Webhook called")
+
+  // Validates validation request
+  if (req.query && req.query.validationToken) {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.query.validationToken);
+    return;
+  }
+
+  if (!req?.body?.value[0]?.changeType) {
+    res.status(400).send("Invalid request body");
+    return;
+  }
+
+  const body = cleanBody(req);
+  console.log(body)
+
+  switch (req.body.value[0].changeType) {
+
+    case "updated":
+      await masterEdit(body, logChange)
+      break;
+    case "created":
+      await masterCreate(body, logChange)
+      break;
+    case "deleted":
+      await masterDelete(body, logChange)
+      break;
+    default:
+      res.status(400).send("Unknown change type");
+      return;
+  }
+
+  res.status(200).send("Contact fixed successfully");
+});
+
+app.post('/masterWebhook/backup', async (req, res) => {
+  console.log("Master Webhook backup called")
+
+  // Validates validation request
+  if (req.query && req.query.validationToken) {
+    res.set('Content-Type', 'text/plain');
+    res.send(req.query.validationToken);
+    return;
+  }
+  if (req?.body?.value[0]?.lifecycleEvent) {
+    const sub = await renew(req?.body?.value[0]?.subscriptionId);
+    subscriptionId = sub.id;
+    res.status(200).send("RENEWED");
+    return;
+  }
+
+  res.status(200).send("OK")
+});
+
 // Creates a subscription to the above webhook route, should almost never be called
 app.post('/subscribe', async (req, res) => {
   console.log("Subscribing");
-  const sub = await subscribe();
+  const sub = await directorySubscribe();
   subscriptionId = sub.id;
+  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
+})
+
+
+app.post('/masterSubscribe', async (req, res) => {
+  console.log("Subscribing to Master");
+  const sub = await masterSubscribe();
   res.status(200).send(`SUBSCRIBED: ${sub.id}`)
 })
 
@@ -162,64 +225,4 @@ app.get('/changekeys', async (req, res) => {
   res.status(200).send(JSON.stringify(verifiedChanges))
 })
 
-app.post('/masterWebhook', async (req, res) => {
-  console.log("Master Webhook called")
 
-  // Validates validation request
-  if (req.query && req.query.validationToken) {
-    res.set('Content-Type', 'text/plain');
-    res.send(req.query.validationToken);
-    return;
-  }
-
-  if (!req?.body?.value[0]?.changeType) {
-    res.status(400).send("Invalid request body");
-    return;
-  }
-  console.log(req.body.value[0]);
-
-  const body = cleanBody(req);
-
-  switch (req.body.value[0].changeType) {
-
-    case "updated":
-      await masterEdit(body, logChange)
-      break;
-    case "created":
-      await masterCreate(body, logChange)
-      break;
-    case "deleted":
-      await masterDelete(body, logChange)
-      break;
-    default:
-      res.status(400).send("Unknown change type");
-      return;
-  }
-
-  res.status(200).send("Contact fixed successfully");
-});
-
-app.post('/masterWebhook/backup', async (req, res) => {
-  console.log("Master Webhook backup called")
-
-  // Validates validation request
-  if (req.query && req.query.validationToken) {
-    res.set('Content-Type', 'text/plain');
-    res.send(req.query.validationToken);
-    return;
-  }
-  if (req?.body?.value[0]?.lifecycleEvent) {
-    const sub = await renew(req?.body?.value[0]?.subscriptionId);
-    subscriptionId = sub.id;
-    res.status(200).send("RENEWED");
-    return;
-  }
-
-  res.status(200).send("OK")
-});
-
-app.post('/masterSubscribe', async (req, res) => {
-  console.log("Subscribing to Master");
-  const sub = await masterSubscribe();
-  res.status(200).send(`SUBSCRIBED: ${sub.id}`)
-})
