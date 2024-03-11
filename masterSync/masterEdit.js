@@ -3,10 +3,9 @@ import auth from "../azure/auth.js";
 
 export default async function masterEdit(body, logChange) {
   console.log("Master Edit");
+  console.log(body.id)
 
   const client = await auth();
-
-  console.log(body)
 
   let contact;
   try {
