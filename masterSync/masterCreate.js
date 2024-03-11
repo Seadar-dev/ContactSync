@@ -4,7 +4,7 @@ import { masterContact, SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS } from "../uti
 export default async function masterCreate(body, logChange) {
   console.log("Master Create");
 
-  console.log(body.id);
+  console.log(body);
 
   const client = await auth();
 
