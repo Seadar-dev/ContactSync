@@ -21,6 +21,8 @@ export default async function masterCreate(body, logChange) {
   logChange(newContact.changeKey);
 
   const res = await client.api(`${process.env.MASTER_PATH}/${body.id}`).patch({ spouseName: newContact.id });
+  logChange(res.changeKey);
+
   console.log(res)
 
   return;

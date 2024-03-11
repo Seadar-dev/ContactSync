@@ -15,6 +15,19 @@ var subscriptionId = null;
 const verifiedChanges = new Set();
 const logChange = (changeKey) => verifiedChanges.add(changeKey)
 
+const validChangeKey = (dirtyRequest, res) => {
+  const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
+  console.log(`CHECKING KEY ${changeKey}`);
+  if (verifiedChanges.has(changeKey)) {
+    verifiedChanges.delete(changeKey);
+    console.log("Validated Change");
+    res.status(200).send("OK");
+
+    return false;
+  }
+  return true
+}
+
 
 //Get request for testing if connection is working
 app.get('/', (req, res) => {
@@ -49,17 +62,8 @@ app.post('/webhook', async (req, res) => {
 
   console.log(body);
 
-  const changeKey = dirtyRequest.resourceData["@odata.etag"].substring(3, dirtyRequest.resourceData["@odata.etag"].length - 1);
-  console.log(`CHECKING KEY ${changeKey}`);
-
-  if (verifiedChanges.has(changeKey)) {
-    verifiedChanges.delete(changeKey);
-    console.log("Validated Change");
-    res.status(200).send("OK");
-
-    return;
-  }
-  console.log(verifiedChanges);
+  const isValid = validChangeKey(dirtyRequest, res);
+  if (!isValid) return;
 
 
   switch (req.body.value[0].changeType) {
@@ -119,6 +123,9 @@ app.post('/masterWebhook', async (req, res) => {
   }
 
   const body = cleanBody(req);
+
+  const isValid = validChangeKey(dirtyRequest, res);
+  if (!isValid) return;
 
   switch (req.body.value[0].changeType) {
 

@@ -12,7 +12,13 @@ export default async function test() {
 
   // console.log(`${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`)
 
-  const res = await masterContact(client, "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviOAAA=");
+  const contact = await masterContact(client, "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviPAAA=");
+  // console.log(res);
+
+  const id = "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviPAAA="
+
+
+  const res = await client.api(`${process.env.MASTER_PATH}/${id}`).patch({ spouseName: "TESTER" });
   console.log(res);
 }
 test();
