@@ -9,6 +9,9 @@ export default async function masterCreate(body, logChange) {
   const client = await auth();
 
   const contact = await masterContact(client, body.id);
+
+  console.log(contact)
+
   let temp = {};
   [...SUBBED_ARRAY_FIELDS, ...SUBBED_STRING_FIELDS].forEach(field => temp[field] = contact[field]);
 
