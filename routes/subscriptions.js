@@ -1,5 +1,5 @@
 import express from 'express'
-import { subscriptions } from '../azure/subscribe';
+import { subscriptions } from '../azure/subscribe.js';
 const router = express.Router()
 
 //Gets a list of all active subscriptions
