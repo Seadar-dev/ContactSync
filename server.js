@@ -23,8 +23,10 @@ app.listen(PORT, () => {
 //Our webhook triggers when the directory changes, and we in turn change it again -- that change we make is considered validated and is included in this Set
 app.locals.verifiedChanges = new Set();
 //A function for adding to the set
-
 app.locals.logChange = (changeKey) => app.locals.verifiedChanges.add(changeKey)
+const logChange = (changeKey) => app.locals.verifiedChanges.add(changeKey)
+
+
 
 //Checks if the changeKey is in the set, true if it needs to be reverted
 //If the change is valid, removes the changeKey from the set. sends an OK
