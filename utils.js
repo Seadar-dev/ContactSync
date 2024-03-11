@@ -39,3 +39,12 @@ export async function masterContact(client, id) {
 export async function directoryContact(client, id) {
   return await client.api(`${process.env.DIRECTORY_PATH}/${id}`).get();
 }
+
+export const SUBBED_STRING_FIELDS = [
+  "id", "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department",
+
+]
+
+export const SUBBED_ARRAY_FIELDS = [
+  "emailAddresses", "businessPhones"
+]
