@@ -4,6 +4,8 @@ import { masterContact, SUBBED_ARRAY_FIELDS, SUBBED_STRING_FIELDS } from "../uti
 export default async function masterCreate(body, logChange) {
   console.log("Master Create");
 
+  console.log(body.id);
+
   const client = await auth();
 
   const contact = await masterContact(client, body.id);
@@ -19,6 +21,7 @@ export default async function masterCreate(body, logChange) {
   logChange(newContact.changeKey);
 
   const res = await client.api(`${process.env.MASTER_PATH}/${body.id}`).patch({ spouseName: newContact.id });
+  console.log(res)
 
   return;
 

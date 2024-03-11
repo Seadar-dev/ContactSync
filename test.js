@@ -12,7 +12,8 @@ export default async function test() {
 
   // console.log(`${SUBBED_STRING_FIELDS.join()},${SUBBED_ARRAY_FIELDS.join()}`)
 
-  const sub = await directorySubscribe();
+  const res = await masterContact(client, "AAMkADRlNjIzZjM3LTY3N2MtNDc3ZS05NzRlLTM2ZGU1MzRmYWM5ZQBGAAAAAADszkAOWRo1Rby9RYdEXMnwBwAUJ6N5tVAjRqN7KFWSXWgnAABwBtqnAAAUJ6N5tVAjRqN7KFWSXWgnAABwBviOAAA=");
+  console.log(res);
 }
 test();
 

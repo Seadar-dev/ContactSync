@@ -119,7 +119,6 @@ app.post('/masterWebhook', async (req, res) => {
   }
 
   const body = cleanBody(req);
-  console.log(body)
 
   switch (req.body.value[0].changeType) {
 
