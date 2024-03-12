@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server.js",
-    "openServer": "npx run-func server.js openServer",
-    "closeServer": "npx run-func server.js closeServer"
+    "start": "node ./server.js"
   },
   "keywords": [],
   "author": "",

@@ -63,16 +63,11 @@ server = app.listen(PORT, async () => {
 });
 
 
-
-process.on('SIGTERM', async () => {
+// Closes the server and all subscriptions
+// SIGTERM is called when the current server is closed -- in Heroku
+// This happens every time you deploy - it closes the old connections before opening new ones
+process.on('beforeExit', async () => {
   await unsubscribeAll();
   console.log("CLOSING");
   server.close();
 })
-
-
-export function closeServer() {
-  console.log("Closing: ",);
-  server.close();
-  return;
-}
