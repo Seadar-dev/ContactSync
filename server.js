@@ -9,6 +9,14 @@ import webhookRouter from "./routes/webhook.js";
 import masterWebhookRouter from "./routes/masterWebhook.js";
 import Airbrake from '@airbrake/node'
 
+new Airbrake.Notifier({
+  projectId: 553350,
+  projectKey: process.env.AIRBRAKE_KEY,
+  environment: 'production'
+});
+throw new Error("CRASHING")
+
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -50,11 +58,6 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
   return true
 }
 
-new Airbrake.Notifier({
-  projectId: 553350,
-  projectKey: process.env.AIRBRAKE_KEY,
-  environment: 'production'
-});
 
 
 
