@@ -18,7 +18,7 @@ async function subscribe(path, urlRoute) {
   };
 
   const res = await client.api('/subscriptions').post(subscription);
-  console.log(res);
+  console.log(`New Subscription for ${urlRoute}: ${res.id}`)
   return res;
 }
 
@@ -28,9 +28,7 @@ export async function renew(id) {
   const subscription = {
     expirationDateTime: expirationDate()
   };
-  const res = await client.api(`/subscriptions/${id}`)
-    .update(subscription);
-
+  const res = await client.api(`/subscriptions/${id}`).update(subscription);
   return res
 }
 
@@ -40,7 +38,7 @@ export async function unsubscribe(id) {
   const client = await auth();
   try {
     const res = await client.api(`/subscriptions/${id}`).delete();
-    console.log(res);
+    console.log("Unsubscribed from: " + id)
   } catch (err) {
     console.log(err)
   }
@@ -52,10 +50,9 @@ export async function unsubscribeAll() {
   const client = await auth();
   const subs = await subscriptions();
   for (const subscription of subs) {
-    console.log(subscription);
     const res = await client.api(`/subscriptions/${subscription.id}`).delete();
   }
-  return "SUCCESS"
+  return `Unsubscribed from ${subs.length} subscriptions`;
 }
 
 //Gets all the relevant subscriptions
