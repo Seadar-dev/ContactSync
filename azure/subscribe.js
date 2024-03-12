@@ -10,9 +10,7 @@ async function subscribe(path, urlRoute) {
     notificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}`,
     lifecycleNotificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}/backup`,
     resource: `${path}?$select=${SUBBED_FIELDS.join()}`,
-    // resource: `${path}?$select=emailAddresses,id,jobTitle,birthday,givenName,surname,title,businessPhones,generation,spouseName,middleName,companyName,department`,
     expirationDateTime: expirationDate(),
-
     clientState: '123456789',
     includeResourceData: true,
     encryptionCertificate: Buffer.from(process.env.AZURE_ENCRYPTION_CERT).toString('base64'),
@@ -26,12 +24,10 @@ async function subscribe(path, urlRoute) {
 
 //Renew's the subscription -- Autotmatically called when needed
 export async function renew(id) {
-
   const client = await auth();
   const subscription = {
     expirationDateTime: expirationDate()
   };
-
   const res = await client.api(`/subscriptions/${id}`)
     .update(subscription);
 
@@ -51,7 +47,6 @@ export async function unsubscribe(id) {
 
 export async function unsubscribeAll(subs) {
   const client = await auth();
-
   for (const subscription of subs) {
     console.log(subscription);
     const res = await client.api(`/subscriptions/${subscription.id}`)
@@ -70,7 +65,6 @@ export async function subscriptions() {
 }
 
 // Subscribes a webhook pointed at the Master, notifying the Heroku Server
-
 export async function masterSubscribe() {
   const res = await subscribe(process.env.MASTER_PATH, "masterWebhook")
   return res;

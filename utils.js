@@ -1,5 +1,11 @@
 import crypto from 'crypto';
 
+//These are all the fields that we subscribe to of the contact. When included here, the fields will sync
+//SpouseName is used as a shared ID, it is required
+export const SUBBED_FIELDS = [
+  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones"
+]
+
 //Makes a subscription expiration date, six days after issuing
 export function expirationDate() {
   let expirationDate = new Date();
@@ -41,8 +47,4 @@ export async function directoryContact(client, id) {
   return await client.api(`${process.env.DIRECTORY_PATH}/${id}`).get();
 }
 
-//These are all the fields that we subscribe to of the contact. When included here, the fields will sync
-//SpouseName is used as a shared ID, it is required
-export const SUBBED_FIELDS = [
-  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones", "suffix"
-]
+
