@@ -1,5 +1,5 @@
 import express from 'express'
-import { subscriptions, unsubscribe, unsubscribeAll } from '../azure/subscribe.js';
+import { unsubscribe, unsubscribeAll } from '../azure/subscribe.js';
 const router = express.Router()
 
 
@@ -18,13 +18,7 @@ router.delete('/', async (req, res) => {
 })
 
 router.delete('/all', async (req, res) => {
-  const allSubscriptions = await subscriptions();
-  if (!allSubscriptions.value) {
-    res.status(400).send("No subscriptions found");
-    return;
-  }
-  await unsubscribeAll(allSubscriptions.value);
-
+  await unsubscribeAll();
   res.status(200).send("OK")
 })
 

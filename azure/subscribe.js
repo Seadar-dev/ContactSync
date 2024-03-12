@@ -48,8 +48,9 @@ export async function unsubscribe(id) {
 
 // Unsubscribes from every active subscription
 
-export async function unsubscribeAll(subs) {
+export async function unsubscribeAll() {
   const client = await auth();
+  const subs = await subscriptions();
   for (const subscription of subs) {
     console.log(subscription);
     const res = await client.api(`/subscriptions/${subscription.id}`).delete();
