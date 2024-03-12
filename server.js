@@ -57,17 +57,18 @@ new Airbrake.Notifier({
 });
 
 server = app.listen(PORT, async () => {
+  await unsubscribeAll();
   await masterSubscribe();
   await directorySubscribe();
   console.log(`Webhook server is listening on port ${PORT}`);
 });
 
-
+//TODO: debug
 // Closes the server and all subscriptions
 // SIGTERM is called when the current server is closed -- in Heroku
 // This happens every time you deploy - it closes the old connections before opening new ones
-process.on('beforeExit', async () => {
-  await unsubscribeAll();
-  console.log("CLOSING");
-  server.close();
-})
+// process.on('beforeExit', async () => {
+//   await unsubscribeAll();
+//   console.log("CLOSING");
+//   server.close();
+// })
