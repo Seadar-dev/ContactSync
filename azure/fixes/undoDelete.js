@@ -30,7 +30,7 @@ async function validateDelete(client, body) {
   console.log("Body: ", body)
   const res = await findInMaster(client, body.id)
   console.log("Response: ", res);
-  if (!res) return true;
+  if (!res?.id) return true;
   return res;
 
 }
