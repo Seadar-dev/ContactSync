@@ -7,6 +7,7 @@ import unsubscribeRoute from "./routes/unsubscribe.js";
 import refreshRouter from "./routes/refresh.js";
 import webhookRouter from "./routes/webhook.js";
 import masterWebhookRouter from "./routes/masterWebhook.js";
+import Airbrake from '@airbrake/node'
 
 const app = express();
 app.use(bodyParser.json());
@@ -49,7 +50,11 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
   return true
 }
 
-
+new Airbrake.Notifier({
+  projectId: 553350,
+  projectKey: process.env.AIRBRAKE_KEY,
+  environment: 'production'
+});
 
 
 
