@@ -57,13 +57,16 @@ export async function unsubscribeAll(subs) {
   return "SUCCESS"
 }
 
-//Gets all the subscriptions
+//Gets all the relevant subscriptions
 export async function subscriptions() {
   const client = await auth();
-  let subscriptions = await client.api('/subscriptions')
-    .get();
-  console.log(subscriptions);
-  return subscriptions;
+  let subscriptions = await client.api('/subscriptions').get();
+  const filtered = subscriptions.value.filter(val => {
+    return val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook" || val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/webhook"
+  })
+
+  console.log(filtered);
+  return filtered;
 }
 
 // Subscribes a webhook pointed at the Master, notifying the Heroku Server
