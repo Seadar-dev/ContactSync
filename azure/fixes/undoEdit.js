@@ -1,5 +1,5 @@
 import auth from "../auth.js";
-import { SUBBED_FIELDS, directoryContact, masterContact } from "../../utils.js";
+import { SUBBED_FIELDS, masterContact } from "../../utils.js";
 
 //Reverts the invalidated edit
 export default async function undoEdit(body, addChangeKey) {
