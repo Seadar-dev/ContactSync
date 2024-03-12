@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server.js",
-    "refresh": "npx run-func .masterSync\\refresh.js default"
+    "refresh": "npx run-func ./masterSync/refresh.js default"
   },
   "keywords": [],
   "author": "",
