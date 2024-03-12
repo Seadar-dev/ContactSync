@@ -50,7 +50,7 @@ export async function directoryContact(client, id) {
 export async function findInMaster(client, id) {
   let response;
   try {
-    response = (await client.api(`${process.env.MASTER_PATH}?filter=spouseName eq '${searchId}'`).get()).value.find(master => master.spouseName === searchId)
+    response = (await client.api(`${process.env.MASTER_PATH}?filter=spouseName eq '${id}'`).get()).value.find(master => master.spouseName === id)
   } catch (err) {
     console.log(err);
   }
