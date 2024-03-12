@@ -9,13 +9,6 @@ import webhookRouter from "./routes/webhook.js";
 import masterWebhookRouter from "./routes/masterWebhook.js";
 import Airbrake from '@airbrake/node'
 
-new Airbrake.Notifier({
-  projectId: 553350,
-  projectKey: process.env.AIRBRAKE_KEY,
-  environment: 'production'
-});
-
-
 const app = express();
 app.use(bodyParser.json());
 
@@ -29,12 +22,6 @@ app.use('/refresh', refreshRouter);
 app.use('/webhook', webhookRouter);
 app.use('/masterWebhook', masterWebhookRouter);
 
-
-// LISTENER
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Webhook server is listening on port ${PORT}`);
-});
 
 // LOCALS
 
@@ -57,6 +44,20 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
   return true
 }
 
+
+// ERROR ALERTS
+new Airbrake.Notifier({
+  projectId: 553350,
+  projectKey: process.env.AIRBRAKE_KEY,
+  environment: 'production'
+});
+
+
+// LISTENER
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Webhook server is listening on port ${PORT}`);
+});
 
 
 
