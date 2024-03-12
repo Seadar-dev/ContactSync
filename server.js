@@ -14,7 +14,6 @@ new Airbrake.Notifier({
   projectKey: process.env.AIRBRAKE_KEY,
   environment: 'production'
 });
-throw new Error("CRASHING")
 
 
 const app = express();
