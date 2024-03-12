@@ -8,6 +8,7 @@ import refreshRouter from "./routes/refresh.js";
 import webhookRouter from "./routes/webhook.js";
 import masterWebhookRouter from "./routes/masterWebhook.js";
 import Airbrake from '@airbrake/node'
+import { directorySubscribe, masterSubscribe, unsubscribeAll } from './azure/subscribe.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -44,6 +45,9 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
   return true
 }
 
+// LISTENER
+const PORT = process.env.PORT || 3000;
+var server;
 
 // ERROR ALERTS
 new Airbrake.Notifier({
@@ -52,12 +56,24 @@ new Airbrake.Notifier({
   environment: 'production'
 });
 
-
-// LISTENER
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server = app.listen(PORT, async () => {
+  await masterSubscribe();
+  await directorySubscribe();
   console.log(`Webhook server is listening on port ${PORT}`);
 });
 
 
 
+process.on('SIGTERM', async () => {
+  console.log("CLOSING");
+  server.close();
+  await unsubscribeAll();
+
+})
+
+
+export function closeServer() {
+  console.log("Closing: ",);
+  server.close();
+  return;
+}
