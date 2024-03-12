@@ -62,8 +62,6 @@ export async function subscriptions() {
   const filtered = subscriptions.value.filter(val => {
     return val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook" || val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/webhook"
   })
-
-  console.log(filtered);
   return filtered;
 }
 

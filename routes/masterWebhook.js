@@ -62,7 +62,7 @@ router.post('/backup', async (req, res) => {
   }
   if (req?.body?.value[0]?.lifecycleEvent) {
     const sub = await renew(req?.body?.value[0]?.subscriptionId);
-    res.status(200).send("RENEWED");
+    res.status(200).send("RENEWED MASTER");
     return;
   }
 
