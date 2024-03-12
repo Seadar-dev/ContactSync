@@ -65,10 +65,9 @@ server = app.listen(PORT, async () => {
 
 
 process.on('SIGTERM', async () => {
+  await unsubscribeAll();
   console.log("CLOSING");
   server.close();
-  await unsubscribeAll();
-
 })
 
 
