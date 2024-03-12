@@ -6,7 +6,7 @@ export default async function undoDelete(body, addChangeKey) {
   const client = await auth();
 
   const isValidRes = await validateDelete(client, body)
-  if (isValidRes) {
+  if (!isValidRes) {
     console.log("Validated Delete")
     return;
   }
@@ -30,7 +30,6 @@ async function validateDelete(client, body) {
   console.log("Body: ", body)
   const res = await findInMaster(client, body.id)
   console.log("Response: ", res);
-  if (!res?.id) return true;
-  return res;
+  return res
 
 }
