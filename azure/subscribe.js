@@ -38,9 +38,12 @@ export async function renew(id) {
 export async function unsubscribe(id) {
   console.log("Unsubscribing - " + id);
   const client = await auth();
-  const res = await client.api(`/subscriptions/${id}`)
-    .delete();
-  console.log(res);
+  try {
+    const res = await client.api(`/subscriptions/${id}`).delete();
+    console.log(res);
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // Unsubscribes from every active subscription
@@ -49,8 +52,7 @@ export async function unsubscribeAll(subs) {
   const client = await auth();
   for (const subscription of subs) {
     console.log(subscription);
-    const res = await client.api(`/subscriptions/${subscription.id}`)
-      .delete();
+    const res = await client.api(`/subscriptions/${subscription.id}`).delete();
   }
   return "SUCCESS"
 }
