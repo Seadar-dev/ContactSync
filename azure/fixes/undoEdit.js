@@ -17,7 +17,8 @@ export default async function undoEdit(body, addChangeKey) {
     const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
     addChangeKey(res.changeKey);
   } catch (err) {
-    console.log(err);
+    console.log("Error while undoing edit: " + err.message);
+
   }
 
   return;

@@ -14,7 +14,7 @@ export default async function masterCreate(body, logChange) {
     console.log("fetching: " + body.id)
     contact = await masterContact(client, body.id);
   } catch (err) {
-    console.log(err);
+    console.log("Error while fetching Master: " + err.message);
     return;
   }
 
@@ -22,14 +22,18 @@ export default async function masterCreate(body, logChange) {
   SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
   console.log({ ...temp, spouseName: body.id });
-  const newContact = await client.api(process.env.DIRECTORY_PATH).post({ ...temp, spouseName: body.id });
 
-  logChange(newContact.changeKey);
+  try {
+    const newContact = await client.api(process.env.DIRECTORY_PATH).post({ ...temp, spouseName: body.id });
 
-  const res = await client.api(`${process.env.MASTER_PATH}/${body.id}`).patch({ spouseName: newContact.id });
-  logChange(res.changeKey);
+    logChange(newContact.changeKey);
 
-  console.log(res)
+    const res = await client.api(`${process.env.MASTER_PATH}/${body.id}`).patch({ spouseName: newContact.id });
+    logChange(res.changeKey);
+
+  } catch (err) {
+    console.log("Error while syncing with Master create: " + err.message);
+  }
 
   return;
 

@@ -5,6 +5,11 @@ import auth from "../auth.js";
 export default async function undoCreate(body) {
   const client = await auth();
   console.log("Undoing Create")
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
+  try {
+    const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
+
+  } catch (err) {
+    console.log("Error while undoing create: " + err.message);
+  }
   return;
 }

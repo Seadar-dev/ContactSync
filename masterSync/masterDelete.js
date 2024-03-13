@@ -5,9 +5,20 @@ export default async function masterDelete(body, logChange) {
   console.log("Master Delete");
   const client = await auth();
 
-  const contactToDelete = (await client.api(`${process.env.DIRECTORY_PATH}`).get()).value.find(directory => directory.spouseName === body.id);
+  try {
+    const contactToDelete = (await client.api(`${process.env.DIRECTORY_PATH}`).get()).value.find(directory => directory.spouseName === body.id);
+    if (!contactToDelete) return;
 
-  if (!contactToDelete) return;
+  } catch (err) {
+    console.log("Error while fetching Master: " + err.message);
+    return;
+  }
 
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${contactToDelete.id}`).delete();
+
+  try {
+    const res = await client.api(`${process.env.DIRECTORY_PATH}/${contactToDelete.id}`).delete();
+  } catch (err) {
+    console.log("Error while syncing Master delete: " + err.message);
+    return;
+  }
 }
