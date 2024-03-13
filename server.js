@@ -47,7 +47,6 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
 
 // LISTENER
 const PORT = process.env.PORT || 3000;
-var server;
 
 // ERROR ALERTS
 new Airbrake.Notifier({
@@ -56,10 +55,10 @@ new Airbrake.Notifier({
   environment: 'production'
 });
 
-server = app.listen(PORT, async () => {
-  await unsubscribeAll();
-  await masterSubscribe();
-  await directorySubscribe();
+app.listen(PORT, async () => {
+  // await unsubscribeAll();
+  // await masterSubscribe();
+  // await directorySubscribe();
   console.log(`Webhook server is listening on port ${PORT}`);
 });
 
