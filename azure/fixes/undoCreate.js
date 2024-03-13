@@ -5,9 +5,6 @@ import auth from "../auth.js";
 export default async function undoCreate(body) {
   const client = await auth();
   console.log("Undoing Create")
-
-  console.log(body)
   const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
-
   return;
 }

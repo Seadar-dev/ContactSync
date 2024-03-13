@@ -4,8 +4,9 @@ import auth from "../azure/auth.js";
 export default async function refresh(logChange) {
   const client = await auth();
 
-  const masterContacts = (await client.api(process.env.MASTER_PATH).get()).value
-  const directoryContacts = (await client.api(process.env.DIRECTORY_PATH).get()).value;
+  const masterContacts = (await client.api(`${process.env.MASTER_PATH}?$Top=1000`).get()).value
+
+  const directoryContacts = (await client.api(`${process.env.DIRECTORY_PATH}?$Top=1000`).get()).value;
 
   const visited = new Set();
   //Empties the Directory of old data
