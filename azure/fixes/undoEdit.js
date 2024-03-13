@@ -7,15 +7,18 @@ export default async function undoEdit(body, addChangeKey) {
 
   if (!body?.spouseName || !body.id) return;
 
-  console.log("Fixing: " + body.id);
+  console.log("Fixing: " + body.id + " to " + body.spouseName);
+  try {
 
-  const contact = await masterContact(client, body.spouseName);
-  let temp = {};
-  SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
+    const contact = await masterContact(client, body.spouseName);
+    let temp = {};
+    SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
-  const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
-
-  addChangeKey(res.changeKey);
+    const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).patch({ ...temp, spouseName: body.spouseName });
+    addChangeKey(res.changeKey);
+  } catch (err) {
+    console.log(err);
+  }
 
   return;
 }
