@@ -20,17 +20,17 @@ In your hosting provider set up your environment vars:
 
 | Key           | Value      |
 | ------------- | ----------:|
-| APP_URL      |   [hosting](#hosting)  |
-| AZURE_TENANT_ID      |   #register_an_app_in_your_azure_ad|
-| AZURE_CLIENT_ID      |   #register_an_app_in_your_azure_ad  |
-| AZURE_CLIENT_SECRET      |   #register_an_app_in_your_azure_ad  |
-| DIRECTORY_PATH      |   #make_a_shared_mailbox  |
-| MASTER_PATH      |   #make_a_master_mailbox  |
-| AZURE_ENCRYPTION_ID      |   #certificate  |
-| AZURE_ENCRYPTION_CERT      |   #certificate  |
-| AZURE_PRIVATE_KEY      |   #certificate  |
-| AIRBRAKE_KEY      |   #airbrake_(optional)  |
-| AIRBRAKE_ID      |    #airbrake_(optional)  |
+| APP_URL      |   [The URL of your application](#hosting)  |
+| AZURE_TENANT_ID      |   [Directory (tenant) ID](#register_an_app_in_your_azure_ad)|
+| AZURE_CLIENT_ID      |   [Application (client) ID](#register_an_app_in_your_azure_ad)  |
+| AZURE_CLIENT_SECRET      |   [Your Client Secret for your app](#register_an_app_in_your_azure_ad)  |
+| DIRECTORY_PATH      |   [The path to your shared folder](#make_a_shared_mailbox)  |
+| MASTER_PATH      |   [The path to your master folder](#make_a_master_mailbox)  |
+| AZURE_ENCRYPTION_ID      |   [The Certificate id of your cert](#certificate)  |
+| AZURE_ENCRYPTION_CERT      |   [The string contents of your cert, starts and ends with '-----BEGIN/END CERTIFICATE-----'](#certificate)  |
+| AZURE_PRIVATE_KEY      |   [The string contents of your private key, starts and ends with '-----BEGIN/END PRIVATE KEY-----'](#certificate)  |
+| AIRBRAKE_KEY      |   [Your optional Airbrake key](#airbrake_(optional))  |
+| AIRBRAKE_ID      |    [Your optional Airbrake id](#airbrake_(optional))  |
 
 
 
