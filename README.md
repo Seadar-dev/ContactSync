@@ -20,7 +20,7 @@ In your hosting provider set up your environment vars:
 
 | Key           | Value      |
 | ------------- | ----------:|
-| APP_URL      |   #hosting  |
+| APP_URL      |   [hosting](#hosting)  |
 | AZURE_TENANT_ID      |   #register_an_app_in_your_azure_ad|
 | AZURE_CLIENT_ID      |   #register_an_app_in_your_azure_ad  |
 | AZURE_CLIENT_SECRET      |   #register_an_app_in_your_azure_ad  |
