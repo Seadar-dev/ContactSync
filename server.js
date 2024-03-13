@@ -56,9 +56,9 @@ new Airbrake.Notifier({
 });
 
 app.listen(PORT, async () => {
-  // await unsubscribeAll();
-  // await masterSubscribe();
-  // await directorySubscribe();
+  await unsubscribeAll();
+  await masterSubscribe();
+  await directorySubscribe();
   console.log(`Webhook server is listening on port ${PORT}`);
 });
 
