@@ -23,7 +23,7 @@ export default async function undoDelete(body, addChangeKey) {
     const res = await client.api(`${process.env.MASTER_PATH}/${contactToUpload.id}`).patch({ spouseName: newContact.id });
     addChangeKey(res.changeKey);
   } catch (err) {
-    console.log("Error while undoing delete: " + err.message);
+    console.error("Error while undoing delete: " + err.message);
 
   }
 

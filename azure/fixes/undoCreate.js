@@ -9,7 +9,7 @@ export default async function undoCreate(body) {
     const res = await client.api(`${process.env.DIRECTORY_PATH}/${body.id}`).delete();
 
   } catch (err) {
-    console.log("Error while undoing create: " + err.message);
+    console.error("Error while undoing create: " + err.message);
   }
   return;
 }

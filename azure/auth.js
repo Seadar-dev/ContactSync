@@ -25,12 +25,16 @@ async function getAccessToken() {
 
 
 export default async function auth() {
-  let clientOptions = {
-    authProvider: {
-      getAccessToken
-    },
-  };
+  try {
+    let clientOptions = {
+      authProvider: {
+        getAccessToken
+      },
+    };
 
-  const client = Client.initWithMiddleware(clientOptions);
-  return client
+    const client = Client.initWithMiddleware(clientOptions);
+    return client
+  } catch (err) {
+    console.error("Failed to authenticate: " + err.message);
+  }
 }

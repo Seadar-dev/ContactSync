@@ -10,7 +10,7 @@ export default async function masterDelete(body, logChange) {
     if (!contactToDelete) return;
 
   } catch (err) {
-    console.log("Error while fetching Master: " + err.message);
+    console.error("Error while fetching Master: " + err.message);
     return;
   }
 
@@ -18,7 +18,7 @@ export default async function masterDelete(body, logChange) {
   try {
     const res = await client.api(`${process.env.DIRECTORY_PATH}/${contactToDelete.id}`).delete();
   } catch (err) {
-    console.log("Error while syncing Master delete: " + err.message);
+    console.error("Error while syncing Master delete: " + err.message);
     return;
   }
 }

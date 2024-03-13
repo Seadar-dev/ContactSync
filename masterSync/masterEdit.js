@@ -12,7 +12,7 @@ export default async function masterEdit(body, logChange) {
     console.log("fetching: " + body.id)
     contact = await masterContact(client, body.id);
   } catch (err) {
-    console.log("Error while fetching master: " + err.message)
+    console.error("Error while fetching master: " + err.message)
     return;
   }
 
@@ -27,7 +27,7 @@ export default async function masterEdit(body, logChange) {
     const fixedContact = await client.api(`${process.env.DIRECTORY_PATH}/${contact.spouseName}`).patch({ ...temp, spouseName: body.id });
     logChange(fixedContact.changeKey);
   } catch (err) {
-    console.log("Error whil;e syncing master edit: " + err.message)
+    console.error("Error whil;e syncing master edit: " + err.message)
   }
 
 }

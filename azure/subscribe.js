@@ -17,9 +17,15 @@ async function subscribe(path, urlRoute) {
     encryptionCertificateId: process.env.AZURE_ENCRYPTION_ID,
   };
 
-  const res = await client.api('/subscriptions').post(subscription);
-  console.log(`New Subscription for ${urlRoute}: ${res.id}`)
-  return res;
+  try {
+    const res = await client.api('/subscriptions').post(subscription);
+    console.log(`New Subscription for ${urlRoute}: ${res.id}`)
+    return res;
+  } catch (err) {
+    console.error(`Error creating subscription for ${urlRoute}: ${err.message}`)
+  }
+
+
 }
 
 //Renew's the subscription -- Autotmatically called when needed
@@ -28,8 +34,12 @@ export async function renew(id) {
   const subscription = {
     expirationDateTime: expirationDate()
   };
-  const res = await client.api(`/subscriptions/${id}`).update(subscription);
-  return res
+  try {
+    const res = await client.api(`/subscriptions/${id}`).update(subscription);
+    return res
+  } catch (err) {
+    console.error(`Error while renewing ${id}: ${err.message}`);
+  }
 }
 
 // Unsubscribes from one specific subscription
@@ -40,7 +50,7 @@ export async function unsubscribe(id) {
     const res = await client.api(`/subscriptions/${id}`).delete();
     console.log("Unsubscribed from: " + id)
   } catch (err) {
-    console.log(err)
+    console.error(`Error while unsubscribing ${id}: ${err.message}`);
   }
 }
 
@@ -50,7 +60,11 @@ export async function unsubscribeAll() {
   const client = await auth();
   const subs = await subscriptions();
   for (const subscription of subs) {
-    const res = await client.api(`/subscriptions/${subscription.id}`).delete();
+    try {
+      const res = await client.api(`/subscriptions/${subscription.id}`).delete();
+    } catch (err) {
+      console.error(`Error while unsubscribing ${subscription.id}: ${err.message}`);
+    }
   }
   return `Unsubscribed from ${subs.length} subscriptions`;
 }
@@ -58,11 +72,16 @@ export async function unsubscribeAll() {
 //Gets all the relevant subscriptions
 export async function subscriptions() {
   const client = await auth();
-  let subscriptions = await client.api('/subscriptions').get();
-  const filtered = subscriptions.value.filter(val => {
-    return val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook" || val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/webhook"
-  })
-  return filtered;
+  try {
+    let subscriptions = await client.api('/subscriptions').get();
+    const filtered = subscriptions.value.filter(val => {
+      return val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook" || val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/webhook"
+    })
+    return filtered;
+  } catch (e) {
+    console.error("Error while fetching subscriptions: " + e.message);
+  }
+
 }
 
 // Subscribes a webhook pointed at the Master, notifying the Heroku Server
