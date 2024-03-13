@@ -7,8 +7,8 @@ async function subscribe(path, urlRoute) {
 
   const subscription = {
     changeType: 'created,updated,deleted',
-    notificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}`,
-    lifecycleNotificationUrl: `https://contact-sync-80dc8f320a31.herokuapp.com/${urlRoute}/backup`,
+    notificationUrl: `${process.env.APP_URL}${urlRoute}`,
+    lifecycleNotificationUrl: `${process.env.APP_URL}${urlRoute}/backup`,
     resource: `${path}?$select=${SUBBED_FIELDS.join()}`,
     expirationDateTime: expirationDate(),
     clientState: '123456789',

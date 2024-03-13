@@ -49,11 +49,14 @@ app.locals.invalidChangeKey = (dirtyRequest, res) => {
 const PORT = process.env.PORT || 3000;
 
 // ERROR ALERTS
-new Airbrake.Notifier({
-  projectId: 553350,
-  projectKey: process.env.AIRBRAKE_KEY,
-  environment: 'production'
-});
+try {
+  new Airbrake.Notifier({
+    projectId: process.env.AIRBRAKE_ID,
+    projectKey: process.env.AIRBRAKE_KEY,
+    environment: 'production'
+  });
+} catch (e) { console.log("Airbrake not set up") }
+
 
 app.listen(PORT, async () => {
   await unsubscribeAll();
