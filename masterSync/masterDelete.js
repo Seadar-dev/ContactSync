@@ -4,9 +4,9 @@ import auth from "../azure/auth.js";
 export default async function masterDelete(body, logChange) {
   console.log("Master Delete");
   const client = await auth();
-
+  let contactToDelete;
   try {
-    const contactToDelete = (await client.api(`${process.env.DIRECTORY_PATH}`).get()).value.find(directory => directory.spouseName === body.id);
+    contactToDelete = (await client.api(`${process.env.DIRECTORY_PATH}`).get()).value.find(directory => directory.spouseName === body.id);
     if (!contactToDelete) return;
 
   } catch (err) {

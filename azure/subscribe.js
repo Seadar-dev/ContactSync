@@ -75,7 +75,7 @@ export async function subscriptions() {
   try {
     let subscriptions = await client.api('/subscriptions').get();
     const filtered = subscriptions.value.filter(val => {
-      return val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/masterWebhook" || val.notificationUrl === "https://contact-sync-80dc8f320a31.herokuapp.com/webhook"
+      return val.notificationUrl === `${process.env.APP_URL}masterWebhook` || val.notificationUrl === `${process.env.APP_URL}webhook`
     })
     return filtered;
   } catch (e) {
