@@ -57,6 +57,8 @@ try {
   });
 } catch (e) { console.log("Airbrake not set up") }
 
+//Default Get just to check if the server is live
+app.get('/', (req, res) => res.status(200).send("Server is active!"))
 
 app.listen(PORT, async () => {
   await unsubscribeAll();
