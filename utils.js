@@ -3,7 +3,7 @@ import crypto from 'crypto';
 //These are all the fields that we subscribe to of the contact. When included here, the fields will sync
 //SpouseName is used as a shared ID, it is required
 export const SUBBED_FIELDS = [
-  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones"
+  "jobTitle", "birthday", "givenName", "surname", "title", "generation", "spouseName", "middleName", "companyName", "department", "emailAddresses", "businessPhones", "homePhones", "mobilePhone"
 ]
 
 //Makes a subscription expiration date, six days after issuing
