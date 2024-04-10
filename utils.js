@@ -49,11 +49,13 @@ export async function directoryContact(client, id) {
 
 // Finds the Master contact by Directory contact id
 export async function findInMaster(client, id) {
+  console.log("Searching Master for Directory: " + id);
   let response;
   try {
     response = (await client.api(`${process.env.MASTER_PATH}?filter=spouseName eq '${id}'`).get()).value.find(master => master.spouseName === id)
   } catch (err) {
     console.log(err);
   }
+  console.log("Found: ", response)
   return response
 }

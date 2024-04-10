@@ -16,6 +16,7 @@ export default async function undoEdit(body, addChangeKey) {
     } catch (err) {
       contact = await findInMaster(body.id);
     }
+    if (!contact) throw new Error("Editted contact not found master")
     let temp = {};
     SUBBED_FIELDS.forEach(field => temp[field] = contact[field]);
 
