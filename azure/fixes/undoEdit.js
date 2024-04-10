@@ -14,7 +14,7 @@ export default async function undoEdit(body, addChangeKey) {
     try {
       contact = await masterContact(client, body.spouseName);
     } catch (err) {
-      contact = await findInMaster(body.id);
+      contact = await findInMaster(client, body.id);
     }
     if (!contact) throw new Error("Editted contact not found master")
     let temp = {};
