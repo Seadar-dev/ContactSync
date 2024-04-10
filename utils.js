@@ -47,6 +47,7 @@ export async function directoryContact(client, id) {
   return await client.api(`${process.env.DIRECTORY_PATH}/${id}`).get();
 }
 
+// Finds the Master contact by Directory contact id
 export async function findInMaster(client, id) {
   let response;
   try {
